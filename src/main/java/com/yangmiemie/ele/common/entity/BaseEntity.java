@@ -1,7 +1,7 @@
 package com.yangmiemie.ele.common.entity;
 
 import com.google.common.collect.Maps;
-import com.yangmiemie.ele.common.Pages;
+import com.yangmiemie.ele.common.utils.Pages;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import java.io.Serializable;

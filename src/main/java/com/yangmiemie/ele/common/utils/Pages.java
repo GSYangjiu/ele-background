@@ -1,4 +1,4 @@
-package com.yangmiemie.ele.common;
+package com.yangmiemie.ele.common.utils;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

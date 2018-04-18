@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangmiemie.ele.dao.IAdminDAO">
+    <sql id="select_column_sql">
+        select
+        id as id,
+        username as username,
+        password as password,
+        create_time as createTime,
+        update_time as updateTime
+        from admin
+    </sql>
+
+    <sql id="condition_sql">
+        <where>
+            <if test = "id != null">
+                and id = #{id}
+            </if>
+            <if test = "username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test = "password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test = "createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test = "updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findList" parameterType="Admin" resultType="Admin">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+        order by id desc
+    </select>
+
+    <select id="find" parameterType="java.lang.Long" resultType="Admin">
+        <include refid="select_column_sql" />
+        where id = #{0}
+    </select>
+
+    <select id="findSelective" parameterType="Admin" resultType="Admin">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+    </select>
+
+    <select id="getCount" parameterType="Admin" resultType="java.lang.Integer">
+        select count(id) from admin
+        <include refid="condition_sql" />
+    </select>
+
+    <insert id="insert" parameterType="Admin" useGeneratedKeys="true" keyProperty="id">
+        insert into admin(
+        username,
+        password,
+        create_time,
+        update_time
+        )values(
+        #{username},
+        #{password},
+        #{createTime},
+        #{updateTime}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="Admin" useGeneratedKeys="true" keyProperty="id">
+        insert into admin
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test = "username != null and username != ''">
+                username,
+            </if>
+            <if test = "password != null and password != ''">
+                password,
+            </if>
+            <if test = "createTime != null">
+                create_time,
+            </if>
+            <if test = "updateTime != null">
+                update_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test = "username != null and username != ''">
+                #{username},
+            </if>
+            <if test = "password != null and password != ''">
+                #{password},
+            </if>
+            <if test = "createTime != null">
+                #{createTime},
+            </if>
+            <if test = "updateTime != null">
+                #{updateTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="Admin">
+        update admin
+        <set>
+            username = #{username},
+            password = #{password},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="Admin">
+        update admin
+        <set>
+            <if test = "username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test = "password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test = "createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test = "updateTime != null">
+                update_time = #{updateTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from admin where id = #{0}
+    </delete>
+
+    <delete id="deleteSelective" parameterType="Admin">
+        delete from admin
+        <include refid="condition_sql" />
+    </delete>
+</mapper>
