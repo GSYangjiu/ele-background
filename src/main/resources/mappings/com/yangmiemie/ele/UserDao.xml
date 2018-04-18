@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangmiemie.ele.dao.IUserDAO">
+    <sql id="select_column_sql">
+        select
+        id as id,
+        username as username,
+        password as password,
+        name as name,
+        age as age
+        from User
+    </sql>
+
+    <sql id="condition_sql">
+        <where>
+            <if test = "id != null">
+                and id = #{id}
+            </if>
+            <if test = "username != null and username != ''">
+                and username = #{username}
+            </if>
+            <if test = "password != null and password != ''">
+                and password = #{password}
+            </if>
+            <if test = "name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test = "age != null">
+                and age = #{age}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findList" parameterType="User" resultType="User">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+        order by id desc
+    </select>
+
+    <select id="find" parameterType="java.lang.Long" resultType="User">
+        <include refid="select_column_sql" />
+        where id = #{0}
+    </select>
+
+    <select id="findSelective" parameterType="User" resultType="User">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+    </select>
+
+    <select id="getCount" parameterType="User" resultType="java.lang.Integer">
+        select count(id) from User
+        <include refid="condition_sql" />
+    </select>
+
+    <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into User(
+            username,
+            password,
+            name,
+            age
+        )values(
+            #{username},
+            #{password},
+            #{name},
+            #{age}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="User" useGeneratedKeys="true" keyProperty="id">
+        insert into User
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test = "username != null and username != ''">
+                username,
+            </if>
+            <if test = "password != null and password != ''">
+                password,
+            </if>
+            <if test = "name != null and name != ''">
+                name,
+            </if>
+            <if test = "age != null">
+                age,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test = "username != null and username != ''">
+                #{username},
+            </if>
+            <if test = "password != null and password != ''">
+                #{password},
+            </if>
+            <if test = "name != null and name != ''">
+                #{name},
+            </if>
+            <if test = "age != null">
+                #{age},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="User">
+        update User
+        <set>
+            username = #{username},
+            password = #{password},
+            name = #{name},
+            age = #{age},
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="User">
+        update User
+        <set>
+            <if test = "username != null and username != ''">
+                username = #{username},
+            </if>
+            <if test = "password != null and password != ''">
+                password = #{password},
+            </if>
+            <if test = "name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test = "age != null">
+                age = #{age},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from User where id = #{0}
+    </delete>
+
+    <delete id="deleteSelective" parameterType="User">
+        delete from User
+        <include refid="condition_sql" />
+    </delete>
+</mapper>
