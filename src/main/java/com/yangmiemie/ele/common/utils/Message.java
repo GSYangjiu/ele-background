@@ -65,4 +65,14 @@ public class Message {
     public void setMap(Map<String, Object> map) {
         this.map = map;
     }
+
+    @Override
+    public String toString() {
+        return "Message{" +
+                "status=" + status +
+                ", error='" + error + '\'' +
+                ", info='" + info + '\'' +
+                ", map=" + map +
+                '}';
+    }
 }

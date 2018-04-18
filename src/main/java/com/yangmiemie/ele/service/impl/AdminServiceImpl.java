@@ -26,12 +26,13 @@ public class AdminServiceImpl implements IAdminService {
         Admin adminTemp = new Admin();
         adminTemp.setUsername(admin.getUsername());
         Admin adminRst = adminDAO.findSelective(adminTemp);
+        String str = MD5Util.MD5(admin.getPassword());
         if (adminRst == null) {
             //不存在该用户，以该用户名注册
+            admin.setPassword(str);
             adminDAO.insertSelective(admin);
             msg = new Message(MessageType.M10003);
         } else {
-            String str = MD5Util.MD5(admin.getPassword());
             if (str.equals(adminRst.getPassword())) {
                 msg = new Message(MessageType.M10001);
             } else {
