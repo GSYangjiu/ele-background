@@ -46,9 +46,9 @@ public class AdminServiceImplTest {
 
         msg = adminService.login(admin1);
         System.out.println(msg.toString());
-        adminService.login(admin2);
+        msg = adminService.login(admin2);
         System.out.println(msg.toString());
-        adminService.login(admin3);
+        msg = adminService.login(admin3);
         System.out.println(msg.toString());
     }
 }
