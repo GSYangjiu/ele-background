@@ -6,6 +6,8 @@
         id as id,
         username as username,
         password as password,
+        city as city,
+        authority as authority,
         create_time as createTime,
         update_time as updateTime
         from admin
@@ -13,86 +15,108 @@
 
     <sql id="condition_sql">
         <where>
-            <if test = "id != null">
+            <if test="id != null">
                 and id = #{id}
             </if>
-            <if test = "username != null and username != ''">
+            <if test="username != null and username != ''">
                 and username = #{username}
             </if>
-            <if test = "password != null and password != ''">
+            <if test="password != null and password != ''">
                 and password = #{password}
             </if>
-            <if test = "createTime != null">
+            <if test="city != null and city != ''">
+                and city = #{city}
+            </if>
+            <if test="authority != null">
+                and authority = #{authority}
+            </if>
+            <if test="createTime != null">
                 and create_time = #{createTime}
             </if>
-            <if test = "updateTime != null">
+            <if test="updateTime != null">
                 and update_time = #{updateTime}
             </if>
         </where>
     </sql>
 
     <select id="findList" parameterType="Admin" resultType="Admin">
-        <include refid="select_column_sql" />
-        <include refid="condition_sql" />
+        <include refid="select_column_sql"/>
+        <include refid="condition_sql"/>
         order by id desc
     </select>
 
     <select id="find" parameterType="java.lang.Long" resultType="Admin">
-        <include refid="select_column_sql" />
+        <include refid="select_column_sql"/>
         where id = #{0}
     </select>
 
     <select id="findSelective" parameterType="Admin" resultType="Admin">
-        <include refid="select_column_sql" />
-        <include refid="condition_sql" />
+        <include refid="select_column_sql"/>
+        <include refid="condition_sql"/>
     </select>
 
     <select id="getCount" parameterType="Admin" resultType="java.lang.Integer">
         select count(id) from admin
-        <include refid="condition_sql" />
+        <include refid="condition_sql"/>
     </select>
 
     <insert id="insert" parameterType="Admin" useGeneratedKeys="true" keyProperty="id">
         insert into admin(
-        username,
-        password,
-        create_time,
-        update_time
+            username,
+            password,
+            city,
+            authority,
+            create_time,
+            update_time
         )values(
-        #{username},
-        #{password},
-        #{createTime},
-        #{updateTime}
+            #{username},
+            #{password},
+            #{city},
+            #{authority},
+            #{createTime},
+            #{updateTime}
         )
     </insert>
 
     <insert id="insertSelective" parameterType="Admin" useGeneratedKeys="true" keyProperty="id">
         insert into admin
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test = "username != null and username != ''">
+            <if test="username != null and username != ''">
                 username,
             </if>
-            <if test = "password != null and password != ''">
+            <if test="password != null and password != ''">
                 password,
             </if>
-            <if test = "createTime != null">
+            <if test="city != null and city != ''">
+                city,
+            </if>
+            <if test="authority != null">
+                authority,
+            </if>
+            <if test="createTime != null">
                 create_time,
             </if>
-            <if test = "updateTime != null">
+            <if test="updateTime != null">
                 update_time,
             </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test = "username != null and username != ''">
+            <if test="username != null and username != ''">
                 #{username},
             </if>
-            <if test = "password != null and password != ''">
+            <if test="password != null and password != ''">
                 #{password},
             </if>
-            <if test = "createTime != null">
+            <if test="city != null and city != ''">
+                #{city},
+            </if>
+            <if test="authority != null">
+                #{authority},
+            </if>
+            <if test="createTime != null">
                 #{createTime},
             </if>
-            <if test = "updateTime != null">
+            <if test="updateTime != null">
                 #{updateTime},
             </if>
         </trim>
@@ -103,6 +127,8 @@
         <set>
             username = #{username},
             password = #{password},
+            city = #{city},
+            authority = #{authority},
             create_time = #{createTime},
             update_time = #{updateTime},
         </set>
@@ -112,16 +138,22 @@
     <update id="updateSelective" parameterType="Admin">
         update admin
         <set>
-            <if test = "username != null and username != ''">
+            <if test="username != null and username != ''">
                 username = #{username},
             </if>
-            <if test = "password != null and password != ''">
+            <if test="password != null and password != ''">
                 password = #{password},
             </if>
-            <if test = "createTime != null">
+            <if test="city != null and city != ''">
+                city = #{city},
+            </if>
+            <if test="authority != null">
+                authority = #{authority},
+            </if>
+            <if test="createTime != null">
                 create_time = #{createTime},
             </if>
-            <if test = "updateTime != null">
+            <if test="updateTime != null">
                 update_time = #{updateTime},
             </if>
         </set>
@@ -134,6 +166,6 @@
 
     <delete id="deleteSelective" parameterType="Admin">
         delete from admin
-        <include refid="condition_sql" />
+        <include refid="condition_sql"/>
     </delete>
 </mapper>

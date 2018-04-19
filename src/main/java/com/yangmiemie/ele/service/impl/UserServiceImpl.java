@@ -21,17 +21,17 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDAO userDao;
 
-    static final private User user = new User();
+    static final private User USER = new User();
 
     @Override
     public List<User> getUserList() {
-        return userDao.findList(user);
+        return userDao.findList(USER);
     }
 
     @Override
     public Message getUserCount() {
         Message msg = new Message();
-        msg.getMap().put("count", userDao.getCount(user));
+        msg.getMap().put("count", userDao.getCount(USER));
         return msg;
     }
 }

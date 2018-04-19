@@ -9,6 +9,8 @@ import com.yangmiemie.ele.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 /**
  * Created by Yang.
  * Email : vincent1094259423@yahoo.com
@@ -20,9 +22,11 @@ public class AdminServiceImpl implements IAdminService {
     @Autowired
     private IAdminDAO adminDAO;
 
+    private static final Admin ADMIN = new Admin();
+
     @Override
     public Message login(Admin admin) {
-        Message msg = null;
+        Message msg;
         Admin adminTemp = new Admin();
         adminTemp.setUsername(admin.getUsername());
         Admin adminRst = adminDAO.findSelective(adminTemp);
@@ -39,6 +43,18 @@ public class AdminServiceImpl implements IAdminService {
                 msg = new Message(MessageType.M10002);
             }
         }
+        return msg;
+    }
+
+    @Override
+    public List<Admin> getAdminList() {
+        return adminDAO.findList(ADMIN);
+    }
+
+    @Override
+    public Message getAdminCount() {
+        Message msg = new Message();
+        msg.getMap().put("count", adminDAO.getCount(ADMIN));
         return msg;
     }
 }
