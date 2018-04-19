@@ -8,28 +8,11 @@ import com.yangmiemie.ele.common.entity.BaseData;
  * Date  : 2018-04-18 11:17
  * Description:
  */
+
 public class User extends BaseData {
-    private static final long serialVersionUID = 1519191979151119597L;
-    private String username;
-    private String password;
+    private static final long serialVersionUID = 7641588799628633361L;
     private String name;
-    private Integer age;
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
+    private String city;
 
     public String getName() {
         return name;
@@ -39,22 +22,16 @@ public class User extends BaseData {
         this.name = name;
     }
 
-    public Integer getAge() {
-        return age;
+    public String getCity() {
+        return city;
     }
 
-    public void setAge(Integer age) {
-        this.age = age;
+    public void setCity(String city) {
+        this.city = city;
     }
 
     @Override
     public String toString() {
-        return "User{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", name='" + name + '\'' +
-                ", age=" + age +
-                ", id=" + id +
-                '}';
+        return "{" + super.toString() + ",name:" + name + ",city:" + city + "}";
     }
 }

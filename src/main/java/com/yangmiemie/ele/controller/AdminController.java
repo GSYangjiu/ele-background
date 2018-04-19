@@ -25,8 +25,8 @@ public class AdminController {
     private IAdminService adminService;
 
     @ApiOperation(value = "管理员登陆", notes = "登陆，未注册用户直接注册")
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
     @ApiImplicitParam(name = "admin", value = "用户名&密码", required = true, dataType = "Admin")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Message login(@RequestBody Admin admin) {
         return adminService.login(admin);
     }

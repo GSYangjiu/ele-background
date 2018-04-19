@@ -1,5 +1,6 @@
 package com.yangmiemie.ele.common.utils;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -17,6 +18,7 @@ public class Message {
     public Message() {
         this.status = MessageType.M10000.getStatus();
         this.error = MessageType.M10000.getMsg();
+        this.map = new HashMap<>();
     }
 
     public Message(MessageType type) {

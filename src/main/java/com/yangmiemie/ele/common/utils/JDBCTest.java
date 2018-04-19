@@ -30,15 +30,15 @@ public class JDBCTest {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        getClassString("select * from admin", "");
-        getMybaitsXml("select * from admin", "");
+        getClassString("select * from user", "");
+        getMybaitsXml("select * from user", "");
     }
 
     public static String getMybaitsXml(String sql, String packageName) throws ClassNotFoundException, SQLException {
         String className = "I" + getClassName(sql) + "DAO";
         StringBuffer sb = new StringBuffer();
         sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE mappings PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mappings.dtd\" >");
-        sb.append("\n<mappings namespace=\"com.yangmiemie.ele." + packageName + ".dao." + className + "\">\n");
+        sb.append("\n<mappings namespace=\"com.yangmiemie.ele" + packageName + ".dao." + className + "\">\n");
         Map<String, Object> meta = getMeta(getMetaData(sql));
         sb.append(getSelectSql(meta, sql));
         sb.append(getConditionSql(meta, sql));
@@ -71,8 +71,8 @@ public class JDBCTest {
     public static String getClassString(String sql, String packageName) throws ClassNotFoundException, SQLException {
         String className = getClassName(sql);
         StringBuffer sb = new StringBuffer();
-        sb.append("package com.mg.web." + packageName + ".entity;" + "\n");
-        sb.append("public class " + className + " extends BaseEntity<" + className + "> {\n");
+        sb.append("package com.yangmiemie.ele" + packageName + ".entity;" + "\n");
+        sb.append("public class " + className + " extends BaseData {\n");
         ResultSetMetaData metaData = getMetaData(sql);//拿到表中每一列的名称和类型信息
         List<String> list = new ArrayList<String>();
         Map<String, String> fieldTypeMap = new HashMap<String, String>();

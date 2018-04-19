@@ -1,5 +1,6 @@
 package com.yangmiemie.ele.service;
 
+import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.entity.User;
 
 import java.util.List;
@@ -13,4 +14,7 @@ import java.util.List;
 public interface IUserService {
 
     public List<User> getUserList();
+
+    //获取用户总量
+    public Message getUserCount();
 }
