@@ -1,6 +1,6 @@
 package com.yangmiemie.ele.entity;
 
-import com.yangmiemie.ele.common.entity.BaseData;
+import com.yangmiemie.ele.common.persistence.BaseDataEntity;
 
 /**
  * Created by Yang.
@@ -8,7 +8,9 @@ import com.yangmiemie.ele.common.entity.BaseData;
  * Date  : 2018-04-18 15:42
  * Description:
  */
-public class Admin extends BaseData {
+public class Admin extends BaseDataEntity<Admin> {
+
+    private static final long serialVersionUID = -1850967873763024455L;
     private String username;
     private String password;
     private String city;

@@ -1,32 +1,67 @@
-package com.yangmiemie.ele.common.entity;
+package com.yangmiemie.ele.common.persistence;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Maps;
-import com.yangmiemie.ele.common.utils.Pages;
+import com.yangmiemie.ele.common.utils.Page;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Map;
 
-/**
- * Created by Yang.
- * Email : vincent1094259423@yahoo.com
- * Date  : 2018-04-18 11:18
- * Description:
- */
 public abstract class BaseEntity<T> implements Serializable {
-
+    private static final long serialVersionUID = 9063351392591468509L;
+    /**
+     * 删除标记（0：正常；1：删除；2：审核；）
+     */
+    public static final String DEL_FLAG_NORMAL = "0";
+    public static final String DEL_FLAG_DELETE = "1";
+    public static final String DEL_FLAG_AUDIT = "2";
+    /**
+     * 实体编号（唯一标识）
+     */
     protected Long id;
+    private String createBy;
+    private String updateBy;
+    private Date createTime;
+    private Date updateTime;
+
+    public String getCreateBy() {
+        return createBy;
+    }
+
+    public void setCreateBy(String createBy) {
+        this.createBy = createBy;
+    }
+
+    public String getUpdateBy() {
+        return updateBy;
+    }
+
+    public void setUpdateBy(String updateBy) {
+        this.updateBy = updateBy;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getUpdateTime() {
+        return updateTime;
+    }
+
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
+    }
 
     /**
      * 当前实体分页对象
      */
     protected Pages<T> pages;
-
-    /**
-     * 排序方式
-     */
-    protected String order;
-
     /**
      * 自定义SQL（SQL标识，SQL内容）
      */
@@ -48,18 +83,16 @@ public abstract class BaseEntity<T> implements Serializable {
         this.id = id;
     }
 
-    public String getOrder() {
-        return order;
-    }
-
-    public void setOrder(String order) {
-        this.order = order;
-    }
-
     public Pages<T> getPages() {
         if (pages == null) {
             pages = new Pages<T>();
         }
+        return pages;
+    }
+
+    @JsonIgnore
+    public Pages<T> setPages(Page<T> page) {
+        this.pages = new Pages<T>(page);
         return pages;
     }
 
@@ -82,15 +115,18 @@ public abstract class BaseEntity<T> implements Serializable {
     /**
      * 插入之前执行方法，子类实现
      */
-    public void preInsert() {
-
-    }
+    public abstract void preInsert();
 
     /**
      * 更新之前执行方法，子类实现
      */
-    public void preUpdate() {
+    public abstract void preUpdate();
 
+    /**
+     * 获取数据库名称
+     */
+    public String getDbName() {
+        return "mysql";
     }
 
     @Override

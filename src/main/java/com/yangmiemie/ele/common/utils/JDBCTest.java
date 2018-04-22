@@ -30,15 +30,15 @@ public class JDBCTest {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        getClassString("select * from admin", "");
-        getMybaitsXml("select * from admin", "");
+        getClassString("select * from shop", "");
+        getMybaitsXml("select * from shop", "");
     }
 
     public static String getMybaitsXml(String sql, String packageName) throws ClassNotFoundException, SQLException {
         String className = "I" + getClassName(sql) + "DAO";
         StringBuffer sb = new StringBuffer();
-        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE mappings PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mappings.dtd\" >");
-        sb.append("\n<mappings namespace=\"com.yangmiemie.ele" + packageName + ".dao." + className + "\">\n");
+        sb.append("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>\n<!DOCTYPE mapper PUBLIC \"-//mybatis.org//DTD Mapper 3.0//EN\" \"http://mybatis.org/dtd/mybatis-3-mapper.dtd\" >");
+        sb.append("\n<mapper namespace=\"com.yangmiemie.ele" + packageName + ".dao." + className + "\">\n");
         Map<String, Object> meta = getMeta(getMetaData(sql));
         sb.append(getSelectSql(meta, sql));
         sb.append(getConditionSql(meta, sql));
@@ -46,7 +46,7 @@ public class JDBCTest {
         sb.append(getInsertSql(meta, sql));
         sb.append(getUpdateSql(meta, sql));
         sb.append(getDeteleSql(meta, sql));
-        sb.append("\n</mappings>");
+        sb.append("\n</mapper>");
         System.out.println(sb);
         return sb.toString();
     }

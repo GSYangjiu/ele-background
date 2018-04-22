@@ -1,4 +1,6 @@
-package com.yangmiemie.ele.common.utils;
+package com.yangmiemie.ele.common.persistence;
+
+import com.yangmiemie.ele.common.utils.Page;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -6,12 +8,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Yang.
- * Email : vincent1094259423@yahoo.com
- * Date  : 2018-04-18 11:21
- * Description:分页类
+ * 分页类
  */
-
 public class Pages<T> {
     private int pageNo = 1; // 当前页码
     private int pageSize = 10; // 页面大小，设置为“-1”表示不进行分页（分页无效）
@@ -20,6 +18,11 @@ public class Pages<T> {
 
     public Pages() {
         this.pageSize = -1;
+    }
+
+    public Pages(Page<T> page) {
+        this.pageNo = page.getOffset() / page.getLimit() + 1;
+        this.pageSize = page.getLimit();
     }
 
     /**
