@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangmiemie.ele.dao.ICategoriesDAO">
+    <sql id="select_column_sql">
+        select
+        id as id,
+        num as num,
+        name as name,
+        parent_num as parentNum
+        from categories
+    </sql>
+
+    <sql id="condition_sql">
+        <where>
+            <if test = "id != null">
+                and id = #{id}
+            </if>
+            <if test = "num != null">
+                and num = #{num}
+            </if>
+            <if test = "name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test = "parentNum != null">
+                and parent_num = #{parentNum}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findList" parameterType="Categories" resultType="Categories">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+        order by id desc
+    </select>
+
+    <select id="find" parameterType="java.lang.Long" resultType="Categories">
+        <include refid="select_column_sql" />
+        where id = #{0}
+    </select>
+
+    <select id="findSelective" parameterType="Categories" resultType="Categories">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+    </select>
+
+    <select id="getCount" parameterType="Categories" resultType="java.lang.Integer">
+        select count(id) from categories
+        <include refid="condition_sql" />
+    </select>
+
+    <insert id="insert" parameterType="Categories" useGeneratedKeys="true" keyProperty="id">
+        insert into categories(
+            num,
+            name,
+            parent_num
+        )values(
+            #{num},
+            #{name},
+            #{parentNum}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="Categories" useGeneratedKeys="true" keyProperty="id">
+        insert into categories
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test = "num != null">
+                num,
+            </if>
+            <if test = "name != null and name != ''">
+                name,
+            </if>
+            <if test = "parentNum != null">
+                parent_num,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test = "num != null">
+                #{num},
+            </if>
+            <if test = "name != null and name != ''">
+                #{name},
+            </if>
+            <if test = "parentNum != null">
+                #{parentNum},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="Categories">
+        update categories
+        <set>
+            num = #{num},
+            name = #{name},
+            parent_num = #{parentNum},
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="Categories">
+        update categories
+        <set>
+            <if test = "num != null">
+                num = #{num},
+            </if>
+            <if test = "name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test = "parentNum != null">
+                parent_num = #{parentNum},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from categories where id = #{0}
+    </delete>
+
+    <delete id="deleteSelective" parameterType="Categories">
+        delete from categories
+        <include refid="condition_sql" />
+    </delete>
+</mapper>

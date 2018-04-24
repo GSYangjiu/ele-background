@@ -30,8 +30,8 @@ public class JDBCTest {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        getClassString("select * from shop", "");
-        getMybaitsXml("select * from shop", "");
+        getClassString("select * from categories", "");
+        getMybaitsXml("select * from categories", "");
     }
 
     public static String getMybaitsXml(String sql, String packageName) throws ClassNotFoundException, SQLException {
@@ -72,7 +72,7 @@ public class JDBCTest {
         String className = getClassName(sql);
         StringBuffer sb = new StringBuffer();
         sb.append("package com.yangmiemie.ele" + packageName + ".entity;" + "\n");
-        sb.append("public class " + className + " extends BaseData {\n");
+        sb.append("public class " + className + " extends BaseDataEntity<"+className+"> {\n");
         ResultSetMetaData metaData = getMetaData(sql);//拿到表中每一列的名称和类型信息
         List<String> list = new ArrayList<String>();
         Map<String, String> fieldTypeMap = new HashMap<String, String>();
