@@ -33,6 +33,12 @@
         order by id desc
     </select>
 
+    <select id="findListByParentNum" parameterType="java.lang.Integer" resultType="Categories">
+        <include refid="select_column_sql" />
+        where parent_num = #{0}
+        order by id desc
+    </select>
+
     <select id="find" parameterType="java.lang.Long" resultType="Categories">
         <include refid="select_column_sql" />
         where id = #{0}

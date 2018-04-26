@@ -2,6 +2,7 @@ package com.yangmiemie.ele.service;
 
 import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.common.utils.Page;
+import com.yangmiemie.ele.common.vo.FoodCategory;
 import com.yangmiemie.ele.entity.Shop;
 
 import java.util.List;
@@ -35,4 +36,20 @@ public interface IShopService {
      * @return
      */
     public Message delete(Long id);
+
+    /**
+     * 根据id获取分类
+     *
+     * @param id 分类id
+     * @return
+     */
+    public List<FoodCategory> getCategories(Integer id);
+
+    /**
+     * 更新店铺
+     *
+     * @param shop
+     * @return
+     */
+    public Message update(Shop shop);
 }

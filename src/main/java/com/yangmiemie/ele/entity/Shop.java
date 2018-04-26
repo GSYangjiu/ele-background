@@ -18,7 +18,7 @@ public class Shop extends BaseDataEntity<Shop> {
     private String sale;
     private Double rating;
     private Integer imageId;
-    private String type;
+    private String category;
     private String description;
 
     public String getName() {
@@ -69,12 +69,12 @@ public class Shop extends BaseDataEntity<Shop> {
         this.imageId = imageId;
     }
 
-    public String getType() {
-        return type;
+    public String getCategory() {
+        return category;
     }
 
-    public void setType(String type) {
-        this.type = type;
+    public void setCategory(String category) {
+        this.category = category;
     }
 
     public String getDescription() {
@@ -87,6 +87,6 @@ public class Shop extends BaseDataEntity<Shop> {
 
     @Override
     public String toString() {
-        return "{" + super.toString() + ",name:" + name + ",address:" + address + ",phone:" + phone + ",sale:" + sale + ",rating:" + rating + ",imageId:" + imageId + ",type:" + type + ",description:" + description + "}";
+        return "{" + super.toString() + ",name:" + name + ",address:" + address + ",phone:" + phone + ",sale:" + sale + ",rating:" + rating + ",imageId:" + imageId + ",category:" + category + ",description:" + description + "}";
     }
 }

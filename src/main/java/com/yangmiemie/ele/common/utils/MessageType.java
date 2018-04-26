@@ -14,7 +14,7 @@ public enum MessageType {
     M10002(10002, "登录失败"),
     M10003(10003, "注册成功"),
 
-    M99999(99999, "占个位子");
+    M99999(99999, "操作失败");
 
     private int status;
     private String msg;

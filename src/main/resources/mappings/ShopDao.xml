@@ -10,7 +10,7 @@
         sale as sale,
         rating as rating,
         image_id as imageId,
-        type as type,
+        category as category,
         description as description
         from shop
     </sql>
@@ -38,8 +38,8 @@
             <if test = "imageId != null">
                 and image_id = #{imageId}
             </if>
-            <if test = "type != null and type != ''">
-                and type = #{type}
+            <if test = "category != null and category != ''">
+                and category = #{category}
             </if>
             <if test = "description != null and description != ''">
                 and description = #{description}
@@ -76,7 +76,7 @@
             sale,
             rating,
             image_id,
-            type,
+            category,
             description
         )values(
             #{name},
@@ -85,7 +85,7 @@
             #{sale},
             #{rating},
             #{imageId},
-            #{type},
+            #{category},
             #{description}
         )
     </insert>
@@ -111,8 +111,8 @@
             <if test = "imageId != null">
                 image_id,
             </if>
-            <if test = "type != null and type != ''">
-                type,
+            <if test = "category != null and category != ''">
+                category,
             </if>
             <if test = "description != null and description != ''">
                 description,
@@ -137,8 +137,8 @@
             <if test = "imageId != null">
                 #{imageId},
             </if>
-            <if test = "type != null and type != ''">
-                #{type},
+            <if test = "category != null and category != ''">
+                #{category},
             </if>
             <if test = "description != null and description != ''">
                 #{description},
@@ -155,7 +155,7 @@
             sale = #{sale},
             rating = #{rating},
             image_id = #{imageId},
-            type = #{type},
+            category = #{category},
             description = #{description},
         </set>
         where id = #{id}
@@ -182,8 +182,8 @@
             <if test = "imageId != null">
                 image_id = #{imageId},
             </if>
-            <if test = "type != null and type != ''">
-                type = #{type},
+            <if test = "category != null and category != ''">
+                category = #{category},
             </if>
             <if test = "description != null and description != ''">
                 description = #{description},

@@ -9,9 +9,11 @@ import com.yangmiemie.ele.common.persistence.BaseDataEntity;
  * Description:
  */
 public class Categories extends BaseDataEntity<Categories> {
+    private static final long serialVersionUID = 2145423554211486621L;
     private Integer num;
     private String name;
     private Integer parentNum;
+
     public Integer getNum(){
         return num;
     }
