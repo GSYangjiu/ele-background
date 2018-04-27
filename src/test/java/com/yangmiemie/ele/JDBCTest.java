@@ -1,4 +1,4 @@
-package com.yangmiemie.ele.common.utils;
+package com.yangmiemie.ele;
 
 import java.sql.*;
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ public class JDBCTest {
     public static final String DRIVER = "com.mysql.jdbc.Driver";
     public static final String URL = "jdbc:mysql://45.77.199.105:3306/ele";
     public static final String USER = "root";
-    public static final String PASSWORD = "yhh94410.0";
+    public static final String PASSWORD;
     public static Map<String, String> map = new HashMap<>();
     static {
         map.put("java.lang.Long", "Long");

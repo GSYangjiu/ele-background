@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.yangmiemie.ele.common.utils.Page;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
@@ -65,6 +66,8 @@ public abstract class BaseEntity<T> implements Serializable {
     /**
      * 自定义SQL（SQL标识，SQL内容）
      */
+
+    @JsonIgnore
     protected Map<String, String> sqlMap;
 
     public BaseEntity() {
@@ -92,6 +95,7 @@ public abstract class BaseEntity<T> implements Serializable {
 
     @JsonIgnore
     public Pages<T> setPages(Page<T> page) {
+        this.id = page.getId();
         this.pages = new Pages<T>(page);
         return pages;
     }
@@ -121,13 +125,6 @@ public abstract class BaseEntity<T> implements Serializable {
      * 更新之前执行方法，子类实现
      */
     public abstract void preUpdate();
-
-    /**
-     * 获取数据库名称
-     */
-    public String getDbName() {
-        return "mysql";
-    }
 
     @Override
     public boolean equals(Object obj) {

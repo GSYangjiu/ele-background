@@ -7,8 +7,17 @@ package com.yangmiemie.ele.common.utils;
  * Description:
  */
 public class Page<T> {
+    private Long id;
     private int offset;
     private int limit;
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public int getOffset() {
         return offset;
@@ -29,7 +38,8 @@ public class Page<T> {
     @Override
     public String toString() {
         return "Page{" +
-                "offset=" + offset +
+                "id=" + id +
+                ", offset=" + offset +
                 ", limit=" + limit +
                 '}';
     }

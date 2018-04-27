@@ -2,7 +2,7 @@ package com.yangmiemie.ele.service;
 
 import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.common.utils.Page;
-import com.yangmiemie.ele.common.vo.FoodCategory;
+import com.yangmiemie.ele.common.vo.ShopCategory;
 import com.yangmiemie.ele.entity.Shop;
 
 import java.util.List;
@@ -43,7 +43,7 @@ public interface IShopService {
      * @param id 分类id
      * @return
      */
-    public List<FoodCategory> getCategories(Integer id);
+    public List<ShopCategory> getCategories(Integer id);
 
     /**
      * 更新店铺

@@ -10,7 +10,7 @@ import java.util.List;
  * Date  : 2018-04-26 10:01
  * Description:
  */
-public class FoodCategory {
+public class ShopCategory {
     private String id;
     private Categories sub_categories;
     private List<Categories> child;

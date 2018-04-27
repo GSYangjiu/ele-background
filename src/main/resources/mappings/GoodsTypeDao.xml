@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangmiemie.ele.dao.IGoodsTypeDAO">
+    <sql id="select_column_sql">
+        select
+        id as id,
+        type as type,
+        description as description,
+        create_time as createTime,
+        update_time as updateTime,
+        create_by as createBy,
+        update_by as updateBy
+        from goods_type
+    </sql>
+
+    <sql id="condition_sql">
+        <where>
+            <if test = "id != null">
+                and id = #{id}
+            </if>
+            <if test = "type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test = "description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test = "createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test = "updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test = "createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test = "updateBy != null">
+                and update_by = #{updateBy}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findList" parameterType="GoodsType" resultType="GoodsType">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+        order by id desc
+    </select>
+
+    <select id="find" parameterType="java.lang.Long" resultType="GoodsType">
+        <include refid="select_column_sql" />
+        where id = #{0}
+    </select>
+
+    <select id="findSelective" parameterType="GoodsType" resultType="GoodsType">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+    </select>
+
+    <select id="getCount" parameterType="GoodsType" resultType="java.lang.Integer">
+        select count(id) from goods_type
+        <include refid="condition_sql" />
+    </select>
+
+    <insert id="insert" parameterType="GoodsType" useGeneratedKeys="true" keyProperty="id">
+        insert into goods_type(
+            type,
+            description,
+            create_time,
+            update_time,
+            create_by,
+            update_by
+        )values(
+            #{type},
+            #{description},
+            #{createTime},
+            #{updateTime},
+            #{createBy},
+            #{updateBy}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="GoodsType" useGeneratedKeys="true" keyProperty="id">
+        insert into goods_type
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test = "type != null and type != ''">
+                type,
+            </if>
+            <if test = "description != null and description != ''">
+                description,
+            </if>
+            <if test = "createTime != null">
+                create_time,
+            </if>
+            <if test = "updateTime != null">
+                update_time,
+            </if>
+            <if test = "createBy != null">
+                create_by,
+            </if>
+            <if test = "updateBy != null">
+                update_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test = "type != null and type != ''">
+                #{type},
+            </if>
+            <if test = "description != null and description != ''">
+                #{description},
+            </if>
+            <if test = "createTime != null">
+                #{createTime},
+            </if>
+            <if test = "updateTime != null">
+                #{updateTime},
+            </if>
+            <if test = "createBy != null">
+                #{createBy},
+            </if>
+            <if test = "updateBy != null">
+                #{updateBy},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="GoodsType">
+        update goods_type
+        <set>
+            type = #{type},
+            description = #{description},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            create_by = #{createBy},
+            update_by = #{updateBy},
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="GoodsType">
+        update goods_type
+        <set>
+            <if test = "type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test = "description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test = "createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test = "updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test = "createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test = "updateBy != null">
+                update_by = #{updateBy},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from goods_type where id = #{0}
+    </delete>
+
+    <delete id="deleteSelective" parameterType="GoodsType">
+        delete from goods_type
+        <include refid="condition_sql" />
+    </delete>
+</mapper>

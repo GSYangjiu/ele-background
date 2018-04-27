@@ -27,21 +27,18 @@ public class AdminController {
     @Autowired
     private IAdminService adminService;
 
-    @ApiOperation(value = "管理员登陆", notes = "登陆，未注册用户直接注册")
     @ApiImplicitParam(name = "admin", value = "用户名&密码", required = true, dataType = "Admin")
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public Message login(@RequestBody Admin admin) {
         return adminService.login(admin);
     }
 
-    @ApiOperation(value = "获取用户列表")
     @ApiImplicitParam(name = "adminList", value = "index&limit", required = true, dataType = "int")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Admin> getAdminList() {
         return adminService.getAdminList();
     }
 
-    @ApiOperation(value = "获取管理员总数")
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public Message getAdminCount() {
         return adminService.getAdminCount();

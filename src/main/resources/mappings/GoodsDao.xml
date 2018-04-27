@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangmiemie.ele.dao.IGoodsDAO">
+    <sql id="select_column_sql">
+        select
+        a.id           as id,
+        a.name         as name,
+        a.description  as description,
+        a.rating       as rating,
+        a.sale         as sale,
+        a.create_time  as createTime,
+        a.update_time  as updateTime,
+        a.create_by    as createBy,
+        a.update_by    as updateBy,
+        a.type         as typeId,
+        a.shop_id      as shopId,
+        b.name         as shopName,
+        b.address      as shopAddress,
+        c.type         as type
+        from goods a
+        left join shop b on a.shop_id = b.id
+        left join goods_type c on a.type = c.id
+    </sql>
+
+    <sql id="condition_sql">
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="name != null and name != ''">
+                and name = #{name}
+            </if>
+            <if test="description != null and description != ''">
+                and description = #{description}
+            </if>
+            <if test="rating != null and rating != ''">
+                and rating = #{rating}
+            </if>
+            <if test="type != null and type != ''">
+                and type = #{type}
+            </if>
+            <if test="sale != null">
+                and sale = #{sale}
+            </if>
+            <if test="createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test="updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test="createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test="updateBy != null">
+                and update_by = #{updateBy}
+            </if>
+            <if test="shopId != null">
+                and shop_id = #{shopId}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findList" parameterType="Goods" resultType="Goods">
+        <include refid="select_column_sql"/>
+        <include refid="condition_sql"/>
+        order by id desc
+    </select>
+
+    <select id="find" parameterType="java.lang.Long" resultType="Goods">
+        <include refid="select_column_sql"/>
+        where id = #{0}
+    </select>
+
+    <select id="findSelective" parameterType="Goods" resultType="Goods">
+        <include refid="select_column_sql"/>
+        <include refid="condition_sql"/>
+    </select>
+
+    <select id="getCount" parameterType="Goods" resultType="java.lang.Integer">
+        select count(id) from goods
+        <include refid="condition_sql"/>
+    </select>
+
+    <insert id="insert" parameterType="Goods" useGeneratedKeys="true" keyProperty="id">
+        insert into goods(
+            name,
+            description,
+            rating,
+            type,
+            sale,
+            create_time,
+            update_time,
+            create_by,
+            update_by,
+            shop_id
+        )values(
+            #{name},
+            #{description},
+            #{rating},
+            #{type},
+            #{sale},
+            #{createTime},
+            #{updateTime},
+            #{createBy},
+            #{updateBy},
+            #{shopId}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="Goods" useGeneratedKeys="true" keyProperty="id">
+        insert into goods
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                name,
+            </if>
+            <if test="description != null and description != ''">
+                description,
+            </if>
+            <if test="rating != null and rating != ''">
+                rating,
+            </if>
+            <if test="type != null and type != ''">
+                type,
+            </if>
+            <if test="sale != null">
+                sale,
+            </if>
+            <if test="createTime != null">
+                create_time,
+            </if>
+            <if test="updateTime != null">
+                update_time,
+            </if>
+            <if test="createBy != null">
+                create_by,
+            </if>
+            <if test="updateBy != null">
+                update_by,
+            </if>
+            <if test="shopId != null">
+                shop_id,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="name != null and name != ''">
+                #{name},
+            </if>
+            <if test="description != null and description != ''">
+                #{description},
+            </if>
+            <if test="rating != null and rating != ''">
+                #{rating},
+            </if>
+            <if test="type != null and type != ''">
+                #{type},
+            </if>
+            <if test="sale != null">
+                #{sale},
+            </if>
+            <if test="createTime != null">
+                #{createTime},
+            </if>
+            <if test="updateTime != null">
+                #{updateTime},
+            </if>
+            <if test="createBy != null">
+                #{createBy},
+            </if>
+            <if test="updateBy != null">
+                #{updateBy},
+            </if>
+            <if test="shopId != null">
+                #{shopId},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="Goods">
+        update goods
+        <set>
+            name = #{name},
+            description = #{description},
+            rating = #{rating},
+            type = #{type},
+            sale = #{sale},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            create_by = #{createBy},
+            update_by = #{updateBy},
+            shop_id = #{shopId},
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="Goods">
+        update goods
+        <set>
+            <if test="name != null and name != ''">
+                name = #{name},
+            </if>
+            <if test="description != null and description != ''">
+                description = #{description},
+            </if>
+            <if test="rating != null and rating != ''">
+                rating = #{rating},
+            </if>
+            <if test="type != null and type != ''">
+                type = #{type},
+            </if>
+            <if test="sale != null">
+                sale = #{sale},
+            </if>
+            <if test="createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test="updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test="createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test="updateBy != null">
+                update_by = #{updateBy},
+            </if>
+            <if test="shopId != null">
+                shop_id = #{shopId},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from goods where id = #{0}
+    </delete>
+
+    <delete id="deleteSelective" parameterType="Goods">
+        delete from goods
+        <include refid="condition_sql"/>
+    </delete>
+</mapper>

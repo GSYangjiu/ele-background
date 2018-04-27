@@ -3,7 +3,7 @@ package com.yangmiemie.ele.service.impl;
 import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.common.utils.MessageType;
 import com.yangmiemie.ele.common.utils.Page;
-import com.yangmiemie.ele.common.vo.FoodCategory;
+import com.yangmiemie.ele.common.vo.ShopCategory;
 import com.yangmiemie.ele.dao.ICategoriesDAO;
 import com.yangmiemie.ele.dao.IShopDAO;
 import com.yangmiemie.ele.entity.Categories;
@@ -69,14 +69,14 @@ public class ShopServiceImpl implements IShopService {
     }
 
     @Override
-    public List<FoodCategory> getCategories(Integer id) {
-        List<FoodCategory> foodCategoryList = new ArrayList<>();
+    public List<ShopCategory> getCategories(Integer id) {
+        List<ShopCategory> foodCategoryList = new ArrayList<>();
         List<Categories> list = categoriesDAO.findListByParentNum(id);
         for (Categories item : list) {
             List<Categories> child = categoriesDAO.findListByParentNum(item.getNum());
 
             //填充 FoodCategoryList,二级菜单，向下迭代一层
-            FoodCategory foodCategory = new FoodCategory();
+            ShopCategory foodCategory = new ShopCategory();
             foodCategory.setCategories(item);
             foodCategory.setChild(child);
             foodCategoryList.add(foodCategory);

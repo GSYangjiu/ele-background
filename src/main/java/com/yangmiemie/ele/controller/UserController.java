@@ -24,14 +24,12 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
-    @ApiOperation(value = "获取用户列表")
     @ApiImplicitParam(name = "userList", value = "index&limit", required = true, dataType = "int")
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<User> getUserInfo() {
         return userService.getUserList();
     }
 
-    @ApiOperation(value = "获取用户总数")
     @RequestMapping(value = "/count", method = RequestMethod.GET)
     public Message getUserCount() {
         return userService.getUserCount();
