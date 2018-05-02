@@ -22,9 +22,13 @@ public abstract class BaseEntity<T> implements Serializable {
      * 实体编号（唯一标识）
      */
     protected Long id;
+    @JsonIgnore
     private String createBy;
+    @JsonIgnore
     private String updateBy;
+    @JsonIgnore
     private Date createTime;
+    @JsonIgnore
     private Date updateTime;
 
     public String getCreateBy() {

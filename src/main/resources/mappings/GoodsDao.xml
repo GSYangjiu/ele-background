@@ -181,7 +181,7 @@
             name = #{name},
             description = #{description},
             rating = #{rating},
-            type = #{type},
+            type = #{typeId},
             sale = #{sale},
             create_time = #{createTime},
             update_time = #{updateTime},
@@ -204,8 +204,8 @@
             <if test="rating != null and rating != ''">
                 rating = #{rating},
             </if>
-            <if test="type != null and type != ''">
-                type = #{type},
+            <if test="typeId != null and typeId != ''">
+                type = #{typeId},
             </if>
             <if test="sale != null">
                 sale = #{sale},

@@ -39,7 +39,7 @@ public class ShopController {
     @ApiImplicitParam(name = "shop", value = "shop", required = true, dataType = "Shop")
     @RequestMapping(value = "/updateShop", method = RequestMethod.PUT)
     public Message updateShop(@RequestBody Shop shop) {
-        return shopService.update(shop);
+        return shopService.updateShop(shop);
     }
 
     @ApiImplicitParam(name = "id", value = "商铺ID", required = true, dataType = "Long")

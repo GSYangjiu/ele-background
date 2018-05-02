@@ -2,6 +2,8 @@ package com.yangmiemie.ele.entity;
 
 import com.yangmiemie.ele.common.persistence.BaseDataEntity;
 
+import java.util.List;
+
 /**
  * Created by Yang.
  * Email : vincent1094259423@yahoo.com
@@ -10,6 +12,7 @@ import com.yangmiemie.ele.common.persistence.BaseDataEntity;
  */
 public class Goods extends BaseDataEntity<Goods> {
     private static final long serialVersionUID = 7689198626916794916L;
+
     private String name;
     private String description;
     private String rating;
@@ -19,6 +22,7 @@ public class Goods extends BaseDataEntity<Goods> {
     private Long shopId;
     private String shopName;
     private String shopAddress;
+    private List<GoodsSpec> specFoods;
 
     public String getName() {
         return name;
@@ -92,6 +96,14 @@ public class Goods extends BaseDataEntity<Goods> {
         this.shopAddress = shopAddress;
     }
 
+    public List<GoodsSpec> getSpecFoods() {
+        return specFoods;
+    }
+
+    public void setSpecFoods(List<GoodsSpec> specfoods) {
+        this.specFoods = specfoods;
+    }
+
     @Override
     public String toString() {
         return "Goods{" +
@@ -99,11 +111,12 @@ public class Goods extends BaseDataEntity<Goods> {
                 ", description='" + description + '\'' +
                 ", rating='" + rating + '\'' +
                 ", type='" + type + '\'' +
-                ", typeId='" + typeId + '\'' +
+                ", typeId=" + typeId +
                 ", sale=" + sale +
                 ", shopId=" + shopId +
                 ", shopName='" + shopName + '\'' +
                 ", shopAddress='" + shopAddress + '\'' +
+                ", specfoods=" + specFoods +
                 ", id=" + id +
                 '}';
     }

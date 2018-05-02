@@ -51,5 +51,5 @@ public interface IShopService {
      * @param shop
      * @return
      */
-    public Message update(Shop shop);
+    public Message updateShop(Shop shop);
 }

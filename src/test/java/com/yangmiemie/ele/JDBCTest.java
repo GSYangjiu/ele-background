@@ -16,7 +16,7 @@ public class JDBCTest {
     public static final String DRIVER = "com.mysql.jdbc.Driver";
     public static final String URL = "jdbc:mysql://45.77.199.105:3306/ele";
     public static final String USER = "root";
-    public static final String PASSWORD;
+    public static final String PASSWORD = "yhh94410.0";
     public static Map<String, String> map = new HashMap<>();
     static {
         map.put("java.lang.Long", "Long");
@@ -30,8 +30,8 @@ public class JDBCTest {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        getClassString("select * from categories", "");
-        getMybaitsXml("select * from categories", "");
+        getClassString("select * from goods_spec", "");
+        getMybaitsXml("select * from goods_spec", "");
     }
 
     public static String getMybaitsXml(String sql, String packageName) throws ClassNotFoundException, SQLException {

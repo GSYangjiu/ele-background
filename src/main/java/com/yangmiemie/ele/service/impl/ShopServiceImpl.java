@@ -57,13 +57,13 @@ public class ShopServiceImpl implements IShopService {
     }
 
     @Override
-    public Message update(Shop shop) {
+    public Message updateShop(Shop shop) {
         Message msg = new Message();
         try {
             shopDAO.updateSelective(shop);
         } catch (Exception e) {
             msg = new Message(MessageType.M99999);
-            logger.error("ShopServiceImpl update METHOD ERROR" + e);
+            logger.error("ShopServiceImpl updateShop METHOD ERROR " + e);
         }
         return msg;
     }

@@ -44,4 +44,12 @@ public interface IGoodsService {
      * @return Message
      */
     public Message delete(Long id);
+
+    /**
+     * 更新商品
+     *
+     * @param goods
+     * @return
+     */
+    public Message updateGoods(Goods goods);
 }
