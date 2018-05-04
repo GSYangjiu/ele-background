@@ -2,6 +2,8 @@ package com.yangmiemie.ele.entity;
 
 import com.yangmiemie.ele.common.persistence.BaseDataEntity;
 
+import java.util.Date;
+
 /**
  * Created by Yang.
  * Email : vincent1094259423@yahoo.com
@@ -14,6 +16,7 @@ public class User extends BaseDataEntity<User> {
     private static final long serialVersionUID = 7641588799628633361L;
     private String name;
     private String city;
+    private Date createTime;
 
     public String getName() {
         return name;
@@ -29,6 +32,16 @@ public class User extends BaseDataEntity<User> {
 
     public void setCity(String city) {
         this.city = city;
+    }
+
+    @Override
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    @Override
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     @Override

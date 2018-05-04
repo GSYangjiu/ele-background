@@ -6,7 +6,6 @@ import com.yangmiemie.ele.common.vo.ShopCategory;
 import com.yangmiemie.ele.entity.Shop;
 import com.yangmiemie.ele.service.IShopService;
 import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
