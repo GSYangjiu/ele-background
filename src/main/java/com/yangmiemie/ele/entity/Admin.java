@@ -2,6 +2,8 @@ package com.yangmiemie.ele.entity;
 
 import com.yangmiemie.ele.common.persistence.BaseDataEntity;
 
+import java.util.Date;
+
 /**
  * Created by Yang.
  * Email : vincent1094259423@yahoo.com
@@ -15,6 +17,7 @@ public class Admin extends BaseDataEntity<Admin> {
     private String password;
     private String city;
     private Integer authority;
+    private Date createTime;
 
     public String getUsername() {
         return username;

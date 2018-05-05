@@ -52,4 +52,12 @@ public interface IShopService {
      * @return
      */
     public Message updateShop(Shop shop);
+
+    /**
+     * 获取商铺详情
+     *
+     * @param id
+     * @return
+     */
+    public Shop getShopDetail(Long id);
 }

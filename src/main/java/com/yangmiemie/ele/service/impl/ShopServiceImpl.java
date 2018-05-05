@@ -83,4 +83,9 @@ public class ShopServiceImpl implements IShopService {
         }
         return foodCategoryList;
     }
+
+    @Override
+    public Shop getShopDetail(Long id) {
+        return shopDAO.find(id);
+    }
 }

@@ -34,14 +34,11 @@ public class ShopController {
         return shopService.getShopCount();
     }
 
-
-    @ApiImplicitParam(name = "shop", value = "shop", required = true, dataType = "Shop")
     @RequestMapping(value = "/updateShop", method = RequestMethod.PUT)
     public Message updateShop(@RequestBody Shop shop) {
         return shopService.updateShop(shop);
     }
 
-    @ApiImplicitParam(name = "id", value = "商铺ID", required = true, dataType = "Long")
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public Message deleteShop(@PathVariable Long id) {
         return shopService.delete(id);
@@ -50,5 +47,10 @@ public class ShopController {
     @RequestMapping(value = "/category", method = RequestMethod.GET)
     public List<ShopCategory> getFoodCategory(@RequestParam(value = "id", required = false, defaultValue = "1000") Integer id) {
         return shopService.getCategories(id);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public Shop getShopDetail(@PathVariable Long id) {
+        return shopService.getShopDetail(id);
     }
 }

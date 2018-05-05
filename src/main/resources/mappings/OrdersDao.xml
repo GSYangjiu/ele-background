@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangmiemie.ele.dao.IOrdersDAO">
+    <sql id="select_column_sql">
+        select
+        id as id,
+        user_id as userId,
+        shop_id as shopId,
+        price as price,
+        status as status,
+        address_num as addressNum,
+        create_time as createTime,
+        update_time as updateTime,
+        create_by as createBy,
+        update_by as updateBy
+        from orders
+    </sql>
+
+    <sql id="condition_sql">
+        <where>
+            <if test = "id != null">
+                and id = #{id}
+            </if>
+            <if test = "userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test = "shopId != null">
+                and shop_id = #{shopId}
+            </if>
+            <if test = "price != null">
+                and price = #{price}
+            </if>
+            <if test = "status != null and status != ''">
+                and status = #{status}
+            </if>
+            <if test = "addressNum != null">
+                and address_num = #{addressNum}
+            </if>
+            <if test = "createTime != null">
+                and create_time = #{createTime}
+            </if>
+            <if test = "updateTime != null">
+                and update_time = #{updateTime}
+            </if>
+            <if test = "createBy != null">
+                and create_by = #{createBy}
+            </if>
+            <if test = "updateBy != null">
+                and update_by = #{updateBy}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findList" parameterType="Orders" resultType="Orders">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+        order by id desc
+    </select>
+
+    <select id="find" parameterType="java.lang.Long" resultType="Orders">
+        <include refid="select_column_sql" />
+        where id = #{0}
+    </select>
+
+    <select id="findSelective" parameterType="Orders" resultType="Orders">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+    </select>
+
+    <select id="getCount" parameterType="Orders" resultType="java.lang.Integer">
+        select count(id) from orders
+        <include refid="condition_sql" />
+    </select>
+
+    <insert id="insert" parameterType="Orders" useGeneratedKeys="true" keyProperty="id">
+        insert into orders(
+            user_id,
+            shop_id,
+            price,
+            status,
+            address_num,
+            create_time,
+            update_time,
+            create_by,
+            update_by
+        )values(
+            #{userId},
+            #{shopId},
+            #{price},
+            #{status},
+            #{addressNum},
+            #{createTime},
+            #{updateTime},
+            #{createBy},
+            #{updateBy}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="Orders" useGeneratedKeys="true" keyProperty="id">
+        insert into orders
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test = "userId != null">
+                user_id,
+            </if>
+            <if test = "shopId != null">
+                shop_id,
+            </if>
+            <if test = "price != null">
+                price,
+            </if>
+            <if test = "status != null and status != ''">
+                status,
+            </if>
+            <if test = "addressNum != null">
+                address_num,
+            </if>
+            <if test = "createTime != null">
+                create_time,
+            </if>
+            <if test = "updateTime != null">
+                update_time,
+            </if>
+            <if test = "createBy != null">
+                create_by,
+            </if>
+            <if test = "updateBy != null">
+                update_by,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test = "userId != null">
+                #{userId},
+            </if>
+            <if test = "shopId != null">
+                #{shopId},
+            </if>
+            <if test = "price != null">
+                #{price},
+            </if>
+            <if test = "status != null and status != ''">
+                #{status},
+            </if>
+            <if test = "addressNum != null">
+                #{addressNum},
+            </if>
+            <if test = "createTime != null">
+                #{createTime},
+            </if>
+            <if test = "updateTime != null">
+                #{updateTime},
+            </if>
+            <if test = "createBy != null">
+                #{createBy},
+            </if>
+            <if test = "updateBy != null">
+                #{updateBy},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="Orders">
+        update orders
+        <set>
+            user_id = #{userId},
+            shop_id = #{shopId},
+            price = #{price},
+            status = #{status},
+            address_num = #{addressNum},
+            create_time = #{createTime},
+            update_time = #{updateTime},
+            create_by = #{createBy},
+            update_by = #{updateBy},
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="Orders">
+        update orders
+        <set>
+            <if test = "userId != null">
+                user_id = #{userId},
+            </if>
+            <if test = "shopId != null">
+                shop_id = #{shopId},
+            </if>
+            <if test = "price != null">
+                price = #{price},
+            </if>
+            <if test = "status != null and status != ''">
+                status = #{status},
+            </if>
+            <if test = "addressNum != null">
+                address_num = #{addressNum},
+            </if>
+            <if test = "createTime != null">
+                create_time = #{createTime},
+            </if>
+            <if test = "updateTime != null">
+                update_time = #{updateTime},
+            </if>
+            <if test = "createBy != null">
+                create_by = #{createBy},
+            </if>
+            <if test = "updateBy != null">
+                update_by = #{updateBy},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from orders where id = #{0}
+    </delete>
+
+    <delete id="deleteSelective" parameterType="Orders">
+        delete from orders
+        <include refid="condition_sql" />
+    </delete>
+</mapper>

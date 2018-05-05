@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangmiemie.ele.dao.IAddressDAO">
+    <sql id="select_column_sql">
+        select
+        id as id,
+        user_id as userId,
+        address as address,
+        type as type
+        from address
+    </sql>
+
+    <sql id="condition_sql">
+        <where>
+            <if test="id != null">
+                and id = #{id}
+            </if>
+            <if test="userId != null">
+                and user_id = #{userId}
+            </if>
+            <if test="address != null and address != ''">
+                and address = #{address}
+            </if>
+            <if test="type != null">
+                and type = #{type}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findList" parameterType="Address" resultType="Address">
+        <include refid="select_column_sql"/>
+        <include refid="condition_sql"/>
+        order by id desc
+    </select>
+
+    <select id="find" parameterType="java.lang.Long" resultType="Address">
+        <include refid="select_column_sql"/>
+        where id = #{0}
+    </select>
+
+    <select id="findSelective" parameterType="Address" resultType="Address">
+        <include refid="select_column_sql"/>
+        <include refid="condition_sql"/>
+    </select>
+
+    <select id="getCount" parameterType="Address" resultType="java.lang.Integer">
+        select count(id) from address
+        <include refid="condition_sql"/>
+    </select>
+
+    <insert id="insert" parameterType="Address" useGeneratedKeys="true" keyProperty="id">
+        insert into address(
+            user_id,
+            address,
+            type
+        )values(
+            #{userId},
+            #{address},
+            #{type}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="Address" useGeneratedKeys="true" keyProperty="id">
+        insert into address
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="address != null and address != ''">
+                address,
+            </if>
+            <if test="type != null">
+                type,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="userId != null">
+                #{userId},
+            </if>
+            <if test="address != null and address != ''">
+                #{address},
+            </if>
+            <if test="type != null">
+                #{type},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="Address">
+        update address
+        <set>
+            user_id = #{userId},
+            address = #{address},
+            type = #{type},
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="Address">
+        update address
+        <set>
+            <if test="userId != null">
+                user_id = #{userId},
+            </if>
+            <if test="address != null and address != ''">
+                address = #{address},
+            </if>
+            <if test="type != null">
+                type = #{type},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from address where id = #{0}
+    </delete>
+
+    <delete id="deleteSelective" parameterType="Address">
+        delete from address
+        <include refid="condition_sql"/>
+    </delete>
+</mapper>

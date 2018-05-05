@@ -30,8 +30,8 @@ public class JDBCTest {
     }
 
     public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        getClassString("select * from goods_spec", "");
-        getMybaitsXml("select * from goods_spec", "");
+        getClassString("select * from address", "");
+        getMybaitsXml("select * from address", "");
     }
 
     public static String getMybaitsXml(String sql, String packageName) throws ClassNotFoundException, SQLException {

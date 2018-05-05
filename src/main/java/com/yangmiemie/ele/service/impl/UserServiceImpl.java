@@ -1,7 +1,9 @@
 package com.yangmiemie.ele.service.impl;
 
 import com.yangmiemie.ele.common.utils.Message;
+import com.yangmiemie.ele.dao.IAddressDAO;
 import com.yangmiemie.ele.dao.IUserDAO;
+import com.yangmiemie.ele.entity.Address;
 import com.yangmiemie.ele.entity.User;
 import com.yangmiemie.ele.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,6 +23,9 @@ public class UserServiceImpl implements IUserService {
     @Autowired
     private IUserDAO userDao;
 
+    @Autowired
+    private IAddressDAO addressDAO;
+
     static final private User USER = new User();
 
     @Override
@@ -33,5 +38,15 @@ public class UserServiceImpl implements IUserService {
         Message msg = new Message();
         msg.getMap().put("count", userDao.getCount(USER));
         return msg;
+    }
+
+    @Override
+    public User getUserDetail(Long id) {
+        return userDao.find(id);
+    }
+
+    @Override
+    public Address getAddressById(Long id) {
+        return addressDAO.find(id);
     }
 }
