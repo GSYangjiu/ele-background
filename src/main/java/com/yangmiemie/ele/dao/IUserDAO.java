@@ -1,6 +1,7 @@
 package com.yangmiemie.ele.dao;
 
 import com.yangmiemie.ele.common.dao.CurdDAO;
+import com.yangmiemie.ele.common.vo.Visitor;
 import com.yangmiemie.ele.entity.User;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -16,4 +17,6 @@ import java.util.List;
 public interface IUserDAO extends CurdDAO<User> {
 
     List<User> findList(User entity);
+
+    List<Visitor> getUserCityCount();
 }

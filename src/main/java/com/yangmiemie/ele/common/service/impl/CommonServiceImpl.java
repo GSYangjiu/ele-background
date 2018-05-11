@@ -1,7 +1,6 @@
 package com.yangmiemie.ele.common.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
-import com.yangmiemie.ele.EleApplication;
 import com.yangmiemie.ele.common.service.ICommonService;
 import com.yangmiemie.ele.common.utils.HttpRequestUtil;
 import com.yangmiemie.ele.common.utils.Message;

@@ -69,6 +69,11 @@
         </where>
     </select>
 
+    <select id="getUserCityCount" parameterType="User" resultType="Visitor">
+        select count(id) as count, city from user group by city
+    </select>
+
+
     <insert id="insert" parameterType="User" useGeneratedKeys="true" keyProperty="id">
         insert into user(
             name,

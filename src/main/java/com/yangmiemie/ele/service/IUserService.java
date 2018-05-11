@@ -54,4 +54,11 @@ public interface IUserService {
      * @return
      */
     public Address getAddressById(Long id);
+
+    /**
+     * 获取用户分布信息
+     *
+     * @return
+     */
+    public Message getUserCityCount();
 }

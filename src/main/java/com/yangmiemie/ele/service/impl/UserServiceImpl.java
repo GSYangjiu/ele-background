@@ -60,4 +60,11 @@ public class UserServiceImpl implements IUserService {
         msg.getMap().put("count", userDao.getCount(user));
         return msg;
     }
+
+    @Override
+    public Message getUserCityCount() {
+        Message msg = new Message();
+        msg.getMap().put("count", userDao.getUserCityCount());
+        return msg;
+    }
 }

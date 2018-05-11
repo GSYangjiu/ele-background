@@ -60,4 +60,9 @@ public class UserController {
     public Address getAddressById(@PathVariable Long id) {
         return userService.getAddressById(id);
     }
+
+    @RequestMapping(value = "/city/count")
+    public Message getUserCityCount() {
+        return userService.getUserCityCount();
+    }
 }
