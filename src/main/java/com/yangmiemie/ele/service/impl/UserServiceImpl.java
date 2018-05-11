@@ -9,6 +9,8 @@ import com.yangmiemie.ele.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -48,5 +50,17 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Address getAddressById(Long id) {
         return addressDAO.find(id);
+    }
+
+    @Override
+    public Message getUserCount(Date date) {
+        Message msg = new Message();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DAY_OF_MONTH, 0);
+        User user = new User();
+        user.setCreateTime(c.getTime());
+        msg.getMap().put("count", userDao.getCount(user));
+        return msg;
     }
 }

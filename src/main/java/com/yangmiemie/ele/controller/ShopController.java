@@ -49,6 +49,11 @@ public class ShopController {
         return shopService.getCategories(id);
     }
 
+    @RequestMapping(value = "/addShop",method = RequestMethod.POST)
+    public Message addShop(Shop shop){
+        return shopService.addShop(shop);
+    }
+
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public Shop getShopDetail(@PathVariable Long id) {
         return shopService.getShopDetail(id);

@@ -9,6 +9,8 @@ import com.yangmiemie.ele.service.IAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,6 +57,18 @@ public class AdminServiceImpl implements IAdminService {
     public Message getAdminCount() {
         Message msg = new Message();
         msg.getMap().put("count", adminDAO.getCount(ADMIN));
+        return msg;
+    }
+
+    @Override
+    public Message getAdminCount(Date date) {
+        Message msg = new Message();
+        Calendar c = Calendar.getInstance();
+        c.setTime(date);
+        c.add(Calendar.DAY_OF_MONTH, 0);
+        Admin admin = new Admin();
+        admin.setCreateTime(c.getTime());
+        msg.getMap().put("count", adminDAO.getCount(admin));
         return msg;
     }
 }

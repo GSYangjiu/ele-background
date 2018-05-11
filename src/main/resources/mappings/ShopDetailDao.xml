@@ -1,0 +1,267 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangmiemie.ele.dao.IShopDetailDAO">
+    <sql id="select_column_sql">
+        select
+        id as id,
+        shop_id as shopId,
+        slogan as slogan,
+        begin_time as beginTime,
+        end_time as endTime,
+        feateres_1 as feateres1,
+        feateres_2 as feateres2,
+        feateres_3 as feateres3,
+        feateres_4 as feateres4,
+        feateres_5 as feateres5,
+        feateres_6 as feateres6,
+        delivery_fee as deliveryFee,
+        start_price as startPrice
+        from shop_detail
+    </sql>
+
+    <sql id="condition_sql">
+        <where>
+            <if test = "id != null">
+                and id = #{id}
+            </if>
+            <if test = "shopId != null">
+                and shop_id = #{shopId}
+            </if>
+            <if test = "slogan != null and slogan != ''">
+                and slogan = #{slogan}
+            </if>
+            <if test = "beginTime != null">
+                and begin_time = #{beginTime}
+            </if>
+            <if test = "endTime != null">
+                and end_time = #{endTime}
+            </if>
+            <if test = "feateres1 != null">
+                and feateres_1 = #{feateres1}
+            </if>
+            <if test = "feateres2 != null">
+                and feateres_2 = #{feateres2}
+            </if>
+            <if test = "feateres3 != null">
+                and feateres_3 = #{feateres3}
+            </if>
+            <if test = "feateres4 != null">
+                and feateres_4 = #{feateres4}
+            </if>
+            <if test = "feateres5 != null">
+                and feateres_5 = #{feateres5}
+            </if>
+            <if test = "feateres6 != null">
+                and feateres_6 = #{feateres6}
+            </if>
+            <if test = "deliveryFee != null">
+                and delivery_fee = #{deliveryFee}
+            </if>
+            <if test = "startPrice != null">
+                and start_price = #{startPrice}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findList" parameterType="ShopDetail" resultType="ShopDetail">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+        order by id desc
+    </select>
+
+    <select id="find" parameterType="java.lang.Long" resultType="ShopDetail">
+        <include refid="select_column_sql" />
+        where id = #{0}
+    </select>
+
+    <select id="findSelective" parameterType="ShopDetail" resultType="ShopDetail">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+    </select>
+
+    <select id="getCount" parameterType="ShopDetail" resultType="java.lang.Integer">
+        select count(id) from shop_detail
+        <include refid="condition_sql" />
+    </select>
+
+    <insert id="insert" parameterType="ShopDetail" useGeneratedKeys="true" keyProperty="id">
+        insert into shop_detail(
+            shop_id,
+            slogan,
+            begin_time,
+            end_time,
+            feateres_1,
+            feateres_2,
+            feateres_3,
+            feateres_4,
+            feateres_5,
+            feateres_6,
+            delivery_fee,
+            start_price
+        )values(
+            #{shopId},
+            #{slogan},
+            #{beginTime},
+            #{endTime},
+            #{feateres1},
+            #{feateres2},
+            #{feateres3},
+            #{feateres4},
+            #{feateres5},
+            #{feateres6},
+            #{deliveryFee},
+            #{startPrice}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="ShopDetail" useGeneratedKeys="true" keyProperty="id">
+        insert into shop_detail
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test = "shopId != null">
+                shop_id,
+            </if>
+            <if test = "slogan != null and slogan != ''">
+                slogan,
+            </if>
+            <if test = "beginTime != null">
+                begin_time,
+            </if>
+            <if test = "endTime != null">
+                end_time,
+            </if>
+            <if test = "feateres1 != null">
+                feateres_1,
+            </if>
+            <if test = "feateres2 != null">
+                feateres_2,
+            </if>
+            <if test = "feateres3 != null">
+                feateres_3,
+            </if>
+            <if test = "feateres4 != null">
+                feateres_4,
+            </if>
+            <if test = "feateres5 != null">
+                feateres_5,
+            </if>
+            <if test = "feateres6 != null">
+                feateres_6,
+            </if>
+            <if test = "deliveryFee != null">
+                delivery_fee,
+            </if>
+            <if test = "startPrice != null">
+                start_price,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test = "shopId != null">
+                #{shopId},
+            </if>
+            <if test = "slogan != null and slogan != ''">
+                #{slogan},
+            </if>
+            <if test = "beginTime != null">
+                #{beginTime},
+            </if>
+            <if test = "endTime != null">
+                #{endTime},
+            </if>
+            <if test = "feateres1 != null">
+                #{feateres1},
+            </if>
+            <if test = "feateres2 != null">
+                #{feateres2},
+            </if>
+            <if test = "feateres3 != null">
+                #{feateres3},
+            </if>
+            <if test = "feateres4 != null">
+                #{feateres4},
+            </if>
+            <if test = "feateres5 != null">
+                #{feateres5},
+            </if>
+            <if test = "feateres6 != null">
+                #{feateres6},
+            </if>
+            <if test = "deliveryFee != null">
+                #{deliveryFee},
+            </if>
+            <if test = "startPrice != null">
+                #{startPrice},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="ShopDetail">
+        update shop_detail
+        <set>
+            shop_id = #{shopId},
+            slogan = #{slogan},
+            begin_time = #{beginTime},
+            end_time = #{endTime},
+            feateres_1 = #{feateres1},
+            feateres_2 = #{feateres2},
+            feateres_3 = #{feateres3},
+            feateres_4 = #{feateres4},
+            feateres_5 = #{feateres5},
+            feateres_6 = #{feateres6},
+            delivery_fee = #{deliveryFee},
+            start_price = #{startPrice},
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="ShopDetail">
+        update shop_detail
+        <set>
+            <if test = "shopId != null">
+                shop_id = #{shopId},
+            </if>
+            <if test = "slogan != null and slogan != ''">
+                slogan = #{slogan},
+            </if>
+            <if test = "beginTime != null">
+                begin_time = #{beginTime},
+            </if>
+            <if test = "endTime != null">
+                end_time = #{endTime},
+            </if>
+            <if test = "feateres1 != null">
+                feateres_1 = #{feateres1},
+            </if>
+            <if test = "feateres2 != null">
+                feateres_2 = #{feateres2},
+            </if>
+            <if test = "feateres3 != null">
+                feateres_3 = #{feateres3},
+            </if>
+            <if test = "feateres4 != null">
+                feateres_4 = #{feateres4},
+            </if>
+            <if test = "feateres5 != null">
+                feateres_5 = #{feateres5},
+            </if>
+            <if test = "feateres6 != null">
+                feateres_6 = #{feateres6},
+            </if>
+            <if test = "deliveryFee != null">
+                delivery_fee = #{deliveryFee},
+            </if>
+            <if test = "startPrice != null">
+                start_price = #{startPrice},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from shop_detail where id = #{0}
+    </delete>
+
+    <delete id="deleteSelective" parameterType="ShopDetail">
+        delete from shop_detail
+        <include refid="condition_sql" />
+    </delete>
+</mapper>

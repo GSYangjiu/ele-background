@@ -54,6 +54,14 @@ public interface IShopService {
     public Message updateShop(Shop shop);
 
     /**
+     * 添加商铺
+     *
+     * @param shop
+     * @return
+     */
+    public Message addShop(Shop shop);
+
+    /**
      * 获取商铺详情
      *
      * @param id

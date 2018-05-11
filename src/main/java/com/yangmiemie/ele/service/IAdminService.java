@@ -3,6 +3,7 @@ package com.yangmiemie.ele.service;
 import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.entity.Admin;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,4 +29,12 @@ public interface IAdminService {
      * @return
      */
     public Message getAdminCount();
+
+    /**
+     * 获取当天注册管理员数量
+     *
+     * @param date
+     * @return
+     */
+    public Message getAdminCount(Date date);
 }

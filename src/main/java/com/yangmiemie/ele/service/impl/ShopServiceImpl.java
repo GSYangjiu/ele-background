@@ -26,7 +26,7 @@ import java.util.List;
 @Service("shopService")
 public class ShopServiceImpl implements IShopService {
 
-    private final static Logger logger = LoggerFactory.getLogger(ShopServiceImpl.class);
+    private final static Logger LOGGER = LoggerFactory.getLogger(ShopServiceImpl.class);
 
     @Autowired
     private IShopDAO shopDAO;
@@ -63,7 +63,7 @@ public class ShopServiceImpl implements IShopService {
             shopDAO.updateSelective(shop);
         } catch (Exception e) {
             msg = new Message(MessageType.M99999);
-            logger.error("ShopServiceImpl updateShop METHOD ERROR " + e);
+            LOGGER.error("ShopServiceImpl updateShop METHOD ERROR " + e);
         }
         return msg;
     }
@@ -87,5 +87,11 @@ public class ShopServiceImpl implements IShopService {
     @Override
     public Shop getShopDetail(Long id) {
         return shopDAO.find(id);
+    }
+
+    @Override
+    public Message addShop(Shop shop) {
+        LOGGER.info("shop： ", shop);
+        return null;
     }
 }

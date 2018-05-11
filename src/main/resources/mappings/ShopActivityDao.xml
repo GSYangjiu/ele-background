@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.yangmiemie.ele.dao.IShopActivityDAO">
+    <sql id="select_column_sql">
+        select
+        id as id,
+        shop_id as shopId,
+        activity_num as activityNum,
+        detail as detail,
+        status as status,
+        begin_time as beginTime,
+        end_time as endTime
+        from shop_activity
+    </sql>
+
+    <sql id="condition_sql">
+        <where>
+            <if test = "id != null">
+                and id = #{id}
+            </if>
+            <if test = "shopId != null">
+                and shop_id = #{shopId}
+            </if>
+            <if test = "activityNum != null">
+                and activity_num = #{activityNum}
+            </if>
+            <if test = "detail != null and detail != ''">
+                and detail = #{detail}
+            </if>
+            <if test = "status != null">
+                and status = #{status}
+            </if>
+            <if test = "beginTime != null">
+                and begin_time = #{beginTime}
+            </if>
+            <if test = "endTime != null">
+                and end_time = #{endTime}
+            </if>
+        </where>
+    </sql>
+
+    <select id="findList" parameterType="ShopActivity" resultType="ShopActivity">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+        order by id desc
+    </select>
+
+    <select id="find" parameterType="java.lang.Long" resultType="ShopActivity">
+        <include refid="select_column_sql" />
+        where id = #{0}
+    </select>
+
+    <select id="findSelective" parameterType="ShopActivity" resultType="ShopActivity">
+        <include refid="select_column_sql" />
+        <include refid="condition_sql" />
+    </select>
+
+    <select id="getCount" parameterType="ShopActivity" resultType="java.lang.Integer">
+        select count(id) from shop_activity
+        <include refid="condition_sql" />
+    </select>
+
+    <insert id="insert" parameterType="ShopActivity" useGeneratedKeys="true" keyProperty="id">
+        insert into shop_activity(
+            shop_id,
+            activity_num,
+            detail,
+            status,
+            begin_time,
+            end_time
+        )values(
+            #{shopId},
+            #{activityNum},
+            #{detail},
+            #{status},
+            #{beginTime},
+            #{endTime}
+        )
+    </insert>
+
+    <insert id="insertSelective" parameterType="ShopActivity" useGeneratedKeys="true" keyProperty="id">
+        insert into shop_activity
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test = "shopId != null">
+                shop_id,
+            </if>
+            <if test = "activityNum != null">
+                activity_num,
+            </if>
+            <if test = "detail != null and detail != ''">
+                detail,
+            </if>
+            <if test = "status != null">
+                status,
+            </if>
+            <if test = "beginTime != null">
+                begin_time,
+            </if>
+            <if test = "endTime != null">
+                end_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test = "shopId != null">
+                #{shopId},
+            </if>
+            <if test = "activityNum != null">
+                #{activityNum},
+            </if>
+            <if test = "detail != null and detail != ''">
+                #{detail},
+            </if>
+            <if test = "status != null">
+                #{status},
+            </if>
+            <if test = "beginTime != null">
+                #{beginTime},
+            </if>
+            <if test = "endTime != null">
+                #{endTime},
+            </if>
+        </trim>
+    </insert>
+
+    <update id="update" parameterType="ShopActivity">
+        update shop_activity
+        <set>
+            shop_id = #{shopId},
+            activity_num = #{activityNum},
+            detail = #{detail},
+            status = #{status},
+            begin_time = #{beginTime},
+            end_time = #{endTime},
+        </set>
+        where id = #{id}
+    </update>
+
+    <update id="updateSelective" parameterType="ShopActivity">
+        update shop_activity
+        <set>
+            <if test = "shopId != null">
+                shop_id = #{shopId},
+            </if>
+            <if test = "activityNum != null">
+                activity_num = #{activityNum},
+            </if>
+            <if test = "detail != null and detail != ''">
+                detail = #{detail},
+            </if>
+            <if test = "status != null">
+                status = #{status},
+            </if>
+            <if test = "beginTime != null">
+                begin_time = #{beginTime},
+            </if>
+            <if test = "endTime != null">
+                end_time = #{endTime},
+            </if>
+        </set>
+        where id = #{id}
+    </update>
+
+    <delete id="delete" parameterType="java.lang.Long">
+        delete from shop_activity where id = #{0}
+    </delete>
+
+    <delete id="deleteSelective" parameterType="ShopActivity">
+        delete from shop_activity
+        <include refid="condition_sql" />
+    </delete>
+</mapper>

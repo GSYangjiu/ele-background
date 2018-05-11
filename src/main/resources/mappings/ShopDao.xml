@@ -11,7 +11,7 @@
         rating as rating,
         image_id as imageId,
         category as category,
-        description as description
+        description as descriptiongetUserCount
         from shop
     </sql>
 

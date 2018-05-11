@@ -4,6 +4,7 @@ import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.entity.Address;
 import com.yangmiemie.ele.entity.User;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -28,6 +29,14 @@ public interface IUserService {
      * @return
      */
     public Message getUserCount();
+
+    /**
+     * 获取当天注册用户量
+     *
+     * @param date
+     * @return
+     */
+    public Message getUserCount(Date date);
 
 
     /**

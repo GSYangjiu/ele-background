@@ -1,5 +1,6 @@
 package com.yangmiemie.ele.controller;
 
+import com.alibaba.druid.sql.visitor.functions.Now;
 import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.entity.Address;
 import com.yangmiemie.ele.entity.User;
@@ -8,8 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -30,8 +33,12 @@ public class UserController {
     }
 
     @RequestMapping(value = "/count", method = RequestMethod.GET)
-    public Message getUserCount() {
-        return userService.getUserCount();
+    public Message getUserCount(@RequestParam(value = "date", required = false) Date date) {
+        if (date == null) {
+            return userService.getUserCount();
+        } else {
+            return userService.getUserCount(date);
+        }
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
