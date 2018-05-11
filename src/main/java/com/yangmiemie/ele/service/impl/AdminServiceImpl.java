@@ -36,6 +36,8 @@ public class AdminServiceImpl implements IAdminService {
         if (adminRst == null) {
             //不存在该用户，以该用户名注册
             admin.setPassword(str);
+            admin.setAuthority(0);
+            admin.preInsert();
             adminDAO.insertSelective(admin);
             msg = new Message(MessageType.M10003);
         } else {
@@ -63,11 +65,8 @@ public class AdminServiceImpl implements IAdminService {
     @Override
     public Message getAdminCount(Date date) {
         Message msg = new Message();
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DAY_OF_MONTH, 0);
         Admin admin = new Admin();
-        admin.setCreateTime(c.getTime());
+        admin.setCreateTime(date);
         msg.getMap().put("count", adminDAO.getCount(admin));
         return msg;
     }

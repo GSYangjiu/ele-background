@@ -6,8 +6,11 @@ import com.yangmiemie.ele.dao.IOrdersDAO;
 import com.yangmiemie.ele.entity.Orders;
 import com.yangmiemie.ele.service.IOrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.annotation.Order;
 import org.springframework.stereotype.Service;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +30,15 @@ public class OrdersServiceImpl implements IOrdersService {
         Message msg = new Message();
         Orders orders = new Orders();
         orders.setShopId(shopId);
+        msg.getMap().put("count", ordersDAO.getCount(orders));
+        return msg;
+    }
+
+    @Override
+    public Message getOrdersCount(Date date) {
+        Message msg = new Message();
+        Orders orders = new Orders();
+        orders.setCreateTime(date);
         msg.getMap().put("count", ordersDAO.getCount(orders));
         return msg;
     }

@@ -4,6 +4,7 @@ import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.common.utils.Page;
 import com.yangmiemie.ele.entity.Orders;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -21,6 +22,15 @@ public interface IOrdersService {
      * @return
      */
     public Message getOrdersCount(Long shopId);
+
+
+    /**
+     * 获取当天订单总量1
+     *
+     * @param date
+     * @return
+     */
+    public Message getOrdersCount(Date date);
 
 
     /**

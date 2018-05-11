@@ -55,11 +55,8 @@ public class UserServiceImpl implements IUserService {
     @Override
     public Message getUserCount(Date date) {
         Message msg = new Message();
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.add(Calendar.DAY_OF_MONTH, 0);
         User user = new User();
-        user.setCreateTime(c.getTime());
+        user.setCreateTime(date);
         msg.getMap().put("count", userDao.getCount(user));
         return msg;
     }
