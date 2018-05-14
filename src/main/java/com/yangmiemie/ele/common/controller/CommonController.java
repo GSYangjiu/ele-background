@@ -2,11 +2,18 @@ package com.yangmiemie.ele.common.controller;
 
 import com.yangmiemie.ele.common.service.ICommonService;
 import com.yangmiemie.ele.common.utils.Message;
+import com.yangmiemie.ele.common.utils.MessageType;
+import org.apache.commons.lang3.StringUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletRequest;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by Yang.
@@ -21,7 +28,12 @@ public class CommonController {
     @Autowired
     private ICommonService commonService;
 
-    @RequestMapping("/cities")
+    @Value("${img.location}")
+    private String location;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(CommonController.class);
+
+    @GetMapping("/cities")
     public Message cityGuess(HttpServletRequest request) {
         String ip = null;
 
@@ -54,5 +66,37 @@ public class CommonController {
             ip = request.getRemoteAddr();
         }
         return commonService.getCityByIP(ip);
+    }
+
+    @PostMapping("/addImg/{type}")
+    public Message uploadImg(@RequestParam("file") MultipartFile multipartFile, @PathVariable String type) {
+        if (multipartFile.isEmpty() || StringUtils.isBlank(multipartFile.getOriginalFilename())) {
+            return new Message(MessageType.M11001);
+        }
+        String contentType = multipartFile.getContentType();
+        if (!contentType.contains("")) {
+            return new Message(MessageType.M11002);
+        }
+        String root_fileName = multipartFile.getOriginalFilename();
+        LOGGER.info("上传图片:name={},type={}", root_fileName, type);
+
+        //获取文件储存路径
+        String filePath = location + File.separator + type;
+        LOGGER.info("图片保存路径={}", filePath);
+        String fileName = null;
+        try {
+            Message msg;
+            fileName = commonService.saveImg(multipartFile, filePath);
+            if (StringUtils.isNotBlank(fileName)) {
+                msg = new Message();
+                msg.setInfo(type + File.separator + fileName);
+            } else {
+                msg = new Message(MessageType.M11003);
+            }
+            return msg;
+        } catch (IOException e) {
+            LOGGER.error("CommonController uploadImg METHOD ERROR " + e);
+            return new Message(MessageType.M11003);
+        }
     }
 }

@@ -5,6 +5,8 @@ import com.yangmiemie.ele.common.utils.Page;
 import com.yangmiemie.ele.entity.Goods;
 import com.yangmiemie.ele.entity.GoodsType;
 import com.yangmiemie.ele.service.IGoodsService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -22,6 +24,8 @@ public class GoodsController {
 
     @Autowired
     private IGoodsService goodsService;
+
+    private final static Logger LOGGER = LoggerFactory.getLogger(GoodsController.class);
 
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     public List<Goods> getShopList(Page<Goods> page) {
@@ -46,5 +50,11 @@ public class GoodsController {
     @RequestMapping(value = "/updateFood", method = RequestMethod.PUT)
     public Message updateFood(@RequestBody Goods goods) {
         return goodsService.updateGoods(goods);
+    }
+
+    @RequestMapping(value = "/addFood", method = RequestMethod.POST)
+    public Message addFood(Goods goods) {
+        LOGGER.info("yang" + goods);
+        return null;
     }
 }

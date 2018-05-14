@@ -1,14 +1,18 @@
 package com.yangmiemie.ele.common.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
+import com.sun.tools.internal.ws.wsdl.parser.Constants;
 import com.yangmiemie.ele.common.service.ICommonService;
 import com.yangmiemie.ele.common.utils.HttpRequestUtil;
 import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.common.utils.MessageType;
+import com.yangmiemie.ele.common.utils.UniqId;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -27,8 +31,8 @@ public class CommonServiceImpl implements ICommonService {
     public Message getCityByIP(String ip) {
         Message msg;
         String url = "http://int.dpool.sina.com.cn/iplookup/iplookup.php";
-        String paraStr = "format=json&ip=" + ip;
-        //String paraStr = "format=json&ip=61.183.176.172";
+        //String paraStr = "format=json&ip=" + ip;
+        String paraStr = "format=json&ip=61.183.176.172";
         try {
             String result = unicodeToString(HttpRequestUtil.sendGet(url, paraStr));
             JSONObject json = JSONObject.parseObject(result);
@@ -59,6 +63,32 @@ public class CommonServiceImpl implements ICommonService {
             str = str.replace(matcher.group(1), ch + "");
         }
         return str;
+    }
+
+    @Override
+    public String saveImg(MultipartFile multipartFile, String path) throws IOException {
+        File file = new File(path);
+        if (!file.exists()) {
+            try {
+                boolean flag = file.mkdirs();
+                if (!flag) {
+                    throw new Exception();
+                }
+            } catch (Exception e) {
+                LOGGER.error("保存图片-创建文件夹失败");
+            }
+        }
+        FileInputStream fileInputStream = (FileInputStream) multipartFile.getInputStream();
+        String fileName = System.currentTimeMillis() + ".png";
+        BufferedOutputStream bos = new BufferedOutputStream(new FileOutputStream(path + File.separator + fileName));
+        byte[] bs = new byte[1024];
+        int len;
+        while ((len = fileInputStream.read(bs)) != -1) {
+            bos.write(bs, 0, len);
+        }
+        bos.flush();
+        bos.close();
+        return fileName;
     }
 }
 

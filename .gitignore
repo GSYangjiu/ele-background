@@ -23,12 +23,9 @@
 /dist/
 /nbdist/
 /.nb-gradle/
-src/main/resources/application\.yml
 
 src/main/resources/application\.properties
 
 log/
-
-src/main/resources/application-dev\.yml
 
 src/test/java/com/yangmiemie/ele/JDBCTest\.java
