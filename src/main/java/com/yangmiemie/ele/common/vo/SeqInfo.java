@@ -1,12 +1,5 @@
 package com.yangmiemie.ele.common.vo;
 
-/**
- * Created by Yang.
- * Email : vincent1094259423@yahoo.com
- * Date  : 2018-05-24 16:36
- * Description:
- */
-
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
