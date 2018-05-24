@@ -18,8 +18,8 @@ import java.util.List;
  * Date  : 2018-05-23 11:28
  * Description:
  */
-@Repository("userTestDao")
-public class UserDaoImpl implements IStudentDAO {
+@Repository("studentDao")
+public class StudentDAOImpl implements IStudentDAO {
     /**
      * 由springboot自动注入，默认配置会产生mongoTemplate这个bean
      */
@@ -39,8 +39,6 @@ public class UserDaoImpl implements IStudentDAO {
      */
     @Override
     public Student getUser(Integer id) {
-
-
         return mongoTemplate.findOne(new Query(Criteria.where("id").is(id)), Student.class);
     }
 

@@ -1,4 +1,4 @@
-package com.yangmiemie.ele.common.utils.autoInc;
+package com.yangmiemie.ele.common.utils.autoKey;
 
 /**
  * Created by Yang.

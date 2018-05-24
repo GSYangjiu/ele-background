@@ -8,6 +8,7 @@ import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.common.utils.MessageType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -17,12 +18,13 @@ import java.util.List;
  * Date  : 2018-05-24 11:44
  * Description:
  */
-public class CrudService<D extends IMGCurdDAO<T>, T extends BaseEntity<T>> implements ICrudService<D, T> {
+@Transactional(readOnly = true)
+public class CrudServiceImpl<D extends IMGCurdDAO<T>, T extends BaseEntity<T>> implements ICrudService<D, T> {
 
     @Autowired
     protected D dao;
 
-    protected static final Logger logger = Logger.getLogger(CrudService.class);
+    protected static final Logger logger = Logger.getLogger(CrudServiceImpl.class);
 
     @Override
     public List<T> findByPage(Pageable page) {

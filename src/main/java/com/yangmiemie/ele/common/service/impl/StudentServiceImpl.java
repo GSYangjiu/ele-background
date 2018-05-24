@@ -1,8 +1,8 @@
 package com.yangmiemie.ele.common.service.impl;
 
-import com.yangmiemie.ele.common.dao.UserDao;
-import com.yangmiemie.ele.common.service.UserService;
-import com.yangmiemie.ele.common.vo.User;
+import com.yangmiemie.ele.common.dao.IStudentDAO;
+import com.yangmiemie.ele.common.service.IStudentService;
+import com.yangmiemie.ele.common.vo.Student;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -16,43 +16,43 @@ import java.util.List;
  * Description:
  */
 
-@Service("userTestService")
-public class UserServiceImpl implements UserService {
+@Service("studentService")
+public class StudentServiceImpl implements IStudentService {
     @Autowired
-    private UserDao userTestDao;
+    private IStudentDAO studentDAO;
 
     @Override
-    public List<User> findAll() {
-        return userTestDao.findAll();
+    public List<Student> findAll() {
+        return studentDAO.findAll();
     }
 
     @Override
-    public User getUser(Integer id) {
-        return userTestDao.getUser(id);
+    public Student getUser(Integer id) {
+        return studentDAO.getUser(id);
     }
 
     @Override
-    public void update(User user) {
-        userTestDao.update(user);
+    public void update(Student user) {
+        studentDAO.update(user);
     }
 
     @Override
-    public void insert(User user) {
-        userTestDao.insert(user);
+    public void insert(Student user) {
+        studentDAO.insert(user);
     }
 
     @Override
-    public void insertAll(List<User> users) {
-        userTestDao.insertAll(users);
+    public void insertAll(List<Student> users) {
+        studentDAO.insertAll(users);
     }
 
     @Override
     public void remove(Integer id) {
-        userTestDao.remove(id);
+        studentDAO.remove(id);
     }
 
     @Override
-    public List<User> findByPage(User user, Pageable pageable) {
-        return userTestDao.findByPage(user, pageable);
+    public List<Student> findByPage(Student user, Pageable pageable) {
+        return studentDAO.findByPage(user, pageable);
     }
 }
