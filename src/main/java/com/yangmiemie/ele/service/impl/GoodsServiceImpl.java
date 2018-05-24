@@ -43,11 +43,11 @@ public class GoodsServiceImpl implements IGoodsService {
     public List<Goods> getGoodsList(Page<Goods> page) {
         GOODS.setPages(page);
         List<Goods> goodsList = goodsDAO.findList(GOODS);
-        for (Goods g : goodsList) {
+        goodsList.forEach(g -> {
             GoodsSpec goodsSpec = new GoodsSpec();
             goodsSpec.setGoodsId(g.getId());
             g.setSpecFoods(goodsSpecDAO.findList(goodsSpec));
-        }
+        });
         return goodsList;
     }
 
@@ -80,19 +80,21 @@ public class GoodsServiceImpl implements IGoodsService {
             goodsSpec.setGoodsId(goods.getId());
             List<GoodsSpec> list = goodsSpecDAO.findList(goodsSpec);
             List<GoodsSpec> goodsSpecList = goods.getSpecFoods();
-            //新增规格
-            for (GoodsSpec s : goodsSpecList) {
-                if (!list.contains(s)) {
-                    s.preInsert();
-                    goodsSpecDAO.insert(s);
-                }
-            }
-            //删除规格
-            for (GoodsSpec s : list) {
-                if (!goodsSpecList.contains(s)) {
-                    goodsSpecDAO.deleteSelective(s);
-                }
-            }
+            goodsSpecList.stream().filter(g -> !list.contains(g)).forEach(g -> goodsSpecDAO.insert(g));
+            list.stream().filter(g -> !goodsSpecList.contains(g)).forEach(g -> goodsSpecDAO.deleteSelective(g));
+//            //新增规格
+//            for (GoodsSpec s : goodsSpecList) {
+//                if (!list.contains(s)) {
+//                    s.preInsert();
+//                    goodsSpecDAO.insert(s);
+//                }
+//            }
+//            //删除规格
+//            for (GoodsSpec s : list) {
+//                if (!goodsSpecList.contains(s)) {
+//                    goodsSpecDAO.deleteSelective(s);
+//                }
+//            }
             goods.preUpdate();
             goodsDAO.updateSelective(goods);
         } catch (Exception e) {

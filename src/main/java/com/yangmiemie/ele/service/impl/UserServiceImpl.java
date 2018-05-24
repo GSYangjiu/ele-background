@@ -1,5 +1,6 @@
 package com.yangmiemie.ele.service.impl;
 
+import com.yangmiemie.ele.common.service.impl.CrudServiceImpl;
 import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.dao.IAddressDAO;
 import com.yangmiemie.ele.dao.IUserDAO;
@@ -9,11 +10,6 @@ import com.yangmiemie.ele.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-
 /**
  * Created by Yang.
  * Email : vincent1094259423@yahoo.com
@@ -21,44 +17,16 @@ import java.util.List;
  * Description:
  */
 @Service("userService")
-public class UserServiceImpl implements IUserService {
+public class UserServiceImpl extends CrudServiceImpl<IUserDAO, User> implements IUserService {
     @Autowired
     private IUserDAO userDao;
 
     @Autowired
     private IAddressDAO addressDAO;
 
-    static final private User USER = new User();
-
-    @Override
-    public List<User> getUserList() {
-        return userDao.findList(USER);
-    }
-
-    @Override
-    public Message getUserCount() {
-        Message msg = new Message();
-        msg.getMap().put("count", userDao.getCount(USER));
-        return msg;
-    }
-
-    @Override
-    public User getUserDetail(Long id) {
-        return userDao.find(id);
-    }
-
     @Override
     public Address getAddressById(Long id) {
         return addressDAO.find(id);
-    }
-
-    @Override
-    public Message getUserCount(Date date) {
-        Message msg = new Message();
-        User user = new User();
-        user.setCreateTime(date);
-        msg.getMap().put("count", userDao.getCount(user));
-        return msg;
     }
 
     @Override

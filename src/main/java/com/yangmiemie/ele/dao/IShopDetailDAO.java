@@ -1,6 +1,6 @@
 package com.yangmiemie.ele.dao;
 
-import com.yangmiemie.ele.common.dao.CurdDAO;
+import com.yangmiemie.ele.common.dao.ICrudDAO;
 import com.yangmiemie.ele.entity.ShopDetail;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,5 +11,5 @@ import org.apache.ibatis.annotations.Mapper;
  * Description:
  */
 @Mapper
-public interface IShopDetailDAO extends CurdDAO<ShopDetail> {
+public interface IShopDetailDAO extends ICrudDAO<ShopDetail> {
 }

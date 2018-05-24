@@ -3,9 +3,11 @@ package com.yangmiemie.ele.common.persistence;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.common.collect.Maps;
 import com.yangmiemie.ele.common.utils.Page;
+import com.yangmiemie.ele.common.utils.autoKey.AutoIncKey;
 import org.apache.commons.lang3.builder.ReflectionToStringBuilder;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Field;
 
-import java.beans.Transient;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Map;
@@ -13,20 +15,18 @@ import java.util.Map;
 public abstract class BaseEntity<T> implements Serializable {
     private static final long serialVersionUID = 9063351392591468509L;
     /**
-     * 删除标记（0：正常；1：删除；2：审核；）
-     */
-    public static final String DEL_FLAG_NORMAL = "0";
-    public static final String DEL_FLAG_DELETE = "1";
-    public static final String DEL_FLAG_AUDIT = "2";
-    /**
      * 实体编号（唯一标识）
      */
+    @Id
+    protected String _id;
+    @AutoIncKey
     protected Long id;
     @JsonIgnore
     private String createBy;
     @JsonIgnore
     private String updateBy;
     @JsonIgnore
+    @Field("create_time")
     private Date createTime;
     @JsonIgnore
     private Date updateTime;
@@ -80,6 +80,15 @@ public abstract class BaseEntity<T> implements Serializable {
     public BaseEntity(Long id) {
         this();
         this.id = id;
+    }
+
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 
     public Long getId() {

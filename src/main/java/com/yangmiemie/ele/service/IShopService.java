@@ -1,8 +1,8 @@
 package com.yangmiemie.ele.service;
 
-import com.yangmiemie.ele.common.utils.Message;
-import com.yangmiemie.ele.common.utils.Page;
+import com.yangmiemie.ele.common.service.ICrudService;
 import com.yangmiemie.ele.common.vo.ShopCategory;
+import com.yangmiemie.ele.dao.IShopDAO;
 import com.yangmiemie.ele.entity.Shop;
 
 import java.util.List;
@@ -13,59 +13,14 @@ import java.util.List;
  * Date  : 2018-04-22 16:31
  * Description:
  */
-public interface IShopService {
+public interface IShopService extends ICrudService<IShopDAO, Shop> {
 
-    /**
-     * 获取商家列表
-     *
-     * @return
-     */
-    public List<Shop> getShopList(Page<Shop> page);
-
-    /**
-     * 获取商家总数
-     *
-     * @return
-     */
-    public Message getShopCount();
-
-    /**
-     * 根据Id删除店铺
-     *
-     * @param id
-     * @return
-     */
-    public Message delete(Long id);
 
     /**
      * 根据id获取分类
      *
      * @param id 分类id
-     * @return
+     * @return List实体
      */
-    public List<ShopCategory> getCategories(Integer id);
-
-    /**
-     * 更新店铺
-     *
-     * @param shop
-     * @return
-     */
-    public Message updateShop(Shop shop);
-
-    /**
-     * 添加商铺
-     *
-     * @param shop
-     * @return
-     */
-    public Message addShop(Shop shop);
-
-    /**
-     * 获取商铺详情
-     *
-     * @param id
-     * @return
-     */
-    public Shop getShopDetail(Long id);
+    List<ShopCategory> getCategories(Integer id);
 }

@@ -28,8 +28,8 @@ public class CommonController {
     @Autowired
     private ICommonService commonService;
 
-    @Value("${img.location}")
-    private String location;
+    @Value("${file.imgPath}")
+    private String imgPath;
 
     private final static Logger LOGGER = LoggerFactory.getLogger(CommonController.class);
 
@@ -81,7 +81,7 @@ public class CommonController {
         LOGGER.info("上传图片:name={},type={}", root_fileName, type);
 
         //获取文件储存路径
-        String filePath = location + File.separator + type;
+        String filePath = imgPath + File.separator + type;
         LOGGER.info("图片保存路径={}", filePath);
         String fileName = null;
         try {
@@ -89,7 +89,7 @@ public class CommonController {
             fileName = commonService.saveImg(multipartFile, filePath);
             if (StringUtils.isNotBlank(fileName)) {
                 msg = new Message();
-                msg.setInfo(type + File.separator + fileName);
+                msg.setInfo("img" + File.separator + type + File.separator + fileName);
             } else {
                 msg = new Message(MessageType.M11003);
             }

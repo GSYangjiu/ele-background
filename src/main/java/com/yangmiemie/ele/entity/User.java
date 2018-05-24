@@ -13,7 +13,7 @@ import java.util.Date;
 
 public class User extends BaseDataEntity<User> {
 
-    private static final long serialVersionUID = 7641588799628633361L;
+    //private static final long serialVersionUID = 7641588799628633361L;
     private String name;
     private String city;
     private Date createTime;

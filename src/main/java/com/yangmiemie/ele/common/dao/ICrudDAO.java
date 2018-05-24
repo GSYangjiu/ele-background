@@ -8,7 +8,7 @@ import java.util.List;
  * Date  : 2018-04-18 11:16
  * Description:
  */
-public interface CurdDAO<T> {
+public interface ICrudDAO<T> {
     public T find(Long id);
 
     public T findSelective(T entity);

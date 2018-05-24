@@ -7,6 +7,7 @@ import com.yangmiemie.ele.entity.Shop;
 import com.yangmiemie.ele.service.IShopService;
 import io.swagger.annotations.ApiImplicitParam;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -24,38 +25,38 @@ public class ShopController {
     @Autowired
     private IShopService shopService;
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<Shop> getShopList(Page<Shop> page) {
-        return shopService.getShopList(page);
+    @GetMapping("/list")
+    public List<Shop> getShopList(Pageable page) {
+        return shopService.findByPage(page);
     }
 
-    @RequestMapping(value = "/count", method = RequestMethod.GET)
-    public Message getShopCount() {
-        return shopService.getShopCount();
+    @GetMapping("/count")
+    public Message getShopCount(Shop shop) {
+        return shopService.getCount(shop);
     }
 
-    @RequestMapping(value = "/updateShop", method = RequestMethod.PUT)
+    @PutMapping("/updateShop")
     public Message updateShop(@RequestBody Shop shop) {
-        return shopService.updateShop(shop);
+        return shopService.update(shop);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @DeleteMapping("/{id}")
     public Message deleteShop(@PathVariable Long id) {
         return shopService.delete(id);
     }
 
-    @RequestMapping(value = "/category", method = RequestMethod.GET)
+    @GetMapping("/category")
     public List<ShopCategory> getFoodCategory(@RequestParam(value = "id", required = false, defaultValue = "1000") Integer id) {
         return shopService.getCategories(id);
     }
 
-    @RequestMapping(value = "/addShop",method = RequestMethod.POST)
-    public Message addShop(Shop shop){
-        return shopService.addShop(shop);
+    @PostMapping("/addShop")
+    public Message addShop(@RequestBody Shop shop) {
+        return shopService.add(shop);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
     public Shop getShopDetail(@PathVariable Long id) {
-        return shopService.getShopDetail(id);
+        return shopService.getDetail(id);
     }
 }

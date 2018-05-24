@@ -9,6 +9,8 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.ParseException;
@@ -30,38 +32,38 @@ public class UserController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(UserController.class);
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<User> getUserInfo() {
-        return userService.getUserList();
+    @GetMapping("/list")
+    public List<User> getUserInfo(Pageable page) {
+        return userService.findByPage(page);
     }
 
-    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    @GetMapping("/count")
     public Message getUserCount(@RequestParam(value = "date", required = false) String date) {
-        if (StringUtils.isBlank(date)) {
-            return userService.getUserCount();
-        } else {
+        User user = new User();
+        if (StringUtils.isNotBlank(date)) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date newDate = sdf.parse(date);
-                return userService.getUserCount(newDate);
+                user.setCreateTime(newDate);
             } catch (ParseException e) {
                 LOGGER.error("UserController getUserCount METHOD ERROR " + e);
                 return new Message(MessageType.M10004);
             }
         }
+        return userService.getCount(user);
     }
 
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @GetMapping("/{id}")
     public User getUserDetail(@PathVariable Long id) {
-        return userService.getUserDetail(id);
+        return userService.getDetail(id);
     }
 
-    @RequestMapping(value = "/address/{id}", method = RequestMethod.GET)
+    @GetMapping("/address/{id}")
     public Address getAddressById(@PathVariable Long id) {
         return userService.getAddressById(id);
     }
 
-    @RequestMapping(value = "/city/count")
+    @GetMapping("/city/count")
     public Message getUserCityCount() {
         return userService.getUserCityCount();
     }
