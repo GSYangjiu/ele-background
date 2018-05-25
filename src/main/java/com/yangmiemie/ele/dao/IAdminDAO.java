@@ -1,8 +1,7 @@
 package com.yangmiemie.ele.dao;
 
-import com.yangmiemie.ele.common.dao.ICrudDAO;
+import com.yangmiemie.ele.common.dao.IMGCurdDAO;
 import com.yangmiemie.ele.entity.Admin;
-import org.apache.ibatis.annotations.Mapper;
 
 /**
  * Created by Yang.
@@ -10,6 +9,5 @@ import org.apache.ibatis.annotations.Mapper;
  * Date  : 2018-04-18 15:45
  * Description:
  */
-@Mapper
-public interface IAdminDAO extends ICrudDAO<Admin> {
+public interface IAdminDAO extends IMGCurdDAO<Admin> {
 }

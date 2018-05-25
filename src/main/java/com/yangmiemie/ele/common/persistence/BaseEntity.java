@@ -29,6 +29,7 @@ public abstract class BaseEntity<T> implements Serializable {
     @Field("create_time")
     private Date createTime;
     @JsonIgnore
+    @Field("update_time")
     private Date updateTime;
 
     public String getCreateBy() {

@@ -1,6 +1,7 @@
 package com.yangmiemie.ele.entity;
 
 import com.yangmiemie.ele.common.persistence.BaseDataEntity;
+import org.springframework.data.annotation.Transient;
 
 import java.util.Date;
 
@@ -12,7 +13,6 @@ import java.util.Date;
  */
 public class Admin extends BaseDataEntity<Admin> {
 
-    private static final long serialVersionUID = -1850967873763024455L;
     private String username;
     private String password;
     private String city;

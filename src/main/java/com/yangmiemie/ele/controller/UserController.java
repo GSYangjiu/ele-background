@@ -38,7 +38,7 @@ public class UserController {
     }
 
     @GetMapping("/count")
-    public Message getUserCount(@RequestParam(value = "date", required = false) String date) {
+    public Message getUserCount(String date) {
         User user = new User();
         if (StringUtils.isNotBlank(date)) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");

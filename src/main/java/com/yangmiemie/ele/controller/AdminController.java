@@ -3,17 +3,14 @@ package com.yangmiemie.ele.controller;
 import com.yangmiemie.ele.common.utils.Message;
 import com.yangmiemie.ele.common.utils.MessageType;
 import com.yangmiemie.ele.entity.Admin;
-import com.yangmiemie.ele.entity.User;
 import com.yangmiemie.ele.service.IAdminService;
-import io.swagger.annotations.ApiImplicitParam;
-import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
-import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -34,29 +31,29 @@ public class AdminController {
 
     private final static Logger LOGGER = LoggerFactory.getLogger(AdminController.class);
 
-    @RequestMapping(value = "/login", method = RequestMethod.POST)
+    @PostMapping("/login")
     public Message login(@RequestBody Admin admin) {
         return adminService.login(admin);
     }
 
-    @RequestMapping(value = "/list", method = RequestMethod.GET)
-    public List<Admin> getAdminList() {
-        return adminService.getAdminList();
+    @GetMapping("/list")
+    public List<Admin> getAdminList(Pageable page) {
+        return adminService.findByPage(page);
     }
 
-    @RequestMapping(value = "/count", method = RequestMethod.GET)
+    @GetMapping("/count")
     public Message getAdminCount(String date) {
-        if (StringUtils.isBlank(date)) {
-            return adminService.getAdminCount();
-        } else {
+        Admin entity = new Admin();
+        if (StringUtils.isNotBlank(date)) {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             try {
                 Date newDate = sdf.parse(date);
-                return adminService.getAdminCount(newDate);
+                entity.setCreateTime(newDate);
             } catch (ParseException e) {
                 LOGGER.error("AdminController getAdminCount METHOD ERROR " + e);
                 return new Message(MessageType.M10004);
             }
         }
+        return adminService.getCount(entity);
     }
 }
